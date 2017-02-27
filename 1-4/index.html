@@ -1,10 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>1-4</title>
+    <style type="text/css">
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main {
+        width: 400px;
+        height: 200px;
+        background: #ccc;
+        position: relative;
+    }
+
+    .main::before {
+        content: "";
+        width: 0px;
+        height: 0px;
+        display: block;
+        border-radius: 50px;
+        border-top: 50px solid transparent;
+        border-bottom: 50px solid transparent;
+        border-right: 50px solid #fc0;
+        border-left: 50px solid transparent;
+        transform: translate(-50%, -50%) rotateZ(45deg);
+    }
+
+    .main::after {
+        content: "";
+        width: 0px;
+        height: 0px;
+        display: block;
+        border-radius: 50px;
+        border-top: 50px solid transparent;
+        border-bottom: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-left: 50px solid #fc0;
+        transform: translate(50%, 50%) rotateZ(45deg);
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    </style>
 </head>
+
 <body>
-test
+    <div class="main">
+    </div>
 </body>
+
 </html>

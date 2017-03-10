@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    position: 0;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+}
+a,li{
+    list-style: none;
+    text-decoration: none;
+    color: #000;
+    display: block;
+}
+.h_c {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.c {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.nav5{
+    width: 20%;
+    text-align: center;
+    box-sizing: border-box;
+}
+.top_bar{
+    color: #fff;
+    background: #91d4da;
+    position: relative;
+    letter-spacing: 0.1em;
+}
+.ttl{
+    padding: 10px 0;
+    font-size: 18px;
+}
+.back{
+    position: absolute;
+    color: inherit;
+    margin-left: 1.5em;
+    left: 0;
+}
+.back::before{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+    border-color: #fff transparent transparent #fff;
+    border-style: solid;
+    transform: translate(-0.7em,0.2em) rotate(-45deg);
+}
+.nav_a{
+    box-sizing: border-box;
+    height: 44px;
+    line-height: 44px;
+}
+.nav_a:focus{
+    border-bottom: 3px solid #91d4da;
+}
+.bg{
+    display: block;/*消除父容器比img多一点高度*/
+    width: 100%;
+}
+.nav_lb{
+    margin: 0 10px;
+    border-bottom: 1px solid #e9e9e9;
+}
+.nav_lb_a{
+    padding: 10px;
+}
+.nav_lb_img{
+    width: 100%;
+}
+.nav_lb_p{
+    margin: 10px 0;
+    font-size: .8em;
+}

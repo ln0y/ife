@@ -1,0 +1,156 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration:none;
+    color:#fff;
+}
+.table {
+    width: 240px;
+    margin: 0 auto;
+}
+
+.table>* {
+    display: flex;
+}
+
+.table>*:first-child {
+    background: #000;
+    color: #fff;
+}
+
+.table dd:nth-child(odd) {
+    background: #ccc;
+}
+
+.table div:nth-child(1) {
+    width: 40px;
+}
+
+.table div:nth-child(2) {
+    width: 140px;
+    border-width: 0 2px;
+    border-style: solid;
+    border-color: #fff;
+}
+
+.table dd:nth-child(-n+4) {
+    color: #f00;
+}
+
+.rectangle {
+    margin: 80px auto;
+    height: 25px;
+    width: 150px;
+    border: 1px solid #ccc;
+}
+
+.rectangle:hover {
+    width: 300px;
+    box-shadow: 0 0 7px 0 #00f;
+    border-radius: 2px;
+    transition: all .3s linear;
+}
+.warp{
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+.images {
+    width: calc(400px*3);
+    height: 100%;
+    animation: a 5s ease-out infinite ;
+}
+
+.images>div {
+    width: 400px;
+    height: 100%;
+    float: left;
+    display: inline-block;
+}
+
+.green {
+    background: green;
+}
+
+.blue {
+    background: blue;
+}
+
+.red {
+    background: red;
+}
+
+a{
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    line-height: 30px;
+    animation-play-state: running;
+}
+@keyframes a{
+    0%,29%{
+        margin-left: 0px;
+    }
+    32%,61%{
+        margin-left: -400px;
+    }
+    64%,93%{
+        margin-left: -800px;
+    }
+    100%{
+        margin-left: 0px;
+    }
+}
+a:hover{
+    animation-play-state: paused;
+}
+.a1:hover ~ .images{
+    animation: a1 .5s ease-out both;
+}
+.a2:hover ~ .images{
+    animation: a2 .5s ease-out both;
+}
+.a3:hover ~ .images{
+    animation: a3 .5s ease-out both;
+}
+.a1{
+    position: absolute;
+    right: 64px;
+    bottom: 0;
+
+}
+.a2{
+    position: absolute;
+    right: 32px;
+    bottom: 0;
+}
+.a3{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+@keyframes a1{
+    from{
+        margin-left: -800px;
+    }
+    to{
+        margin-left: 0;
+    }
+}
+@keyframes a2{
+    to{
+        margin-left: -400px;
+    }
+}
+@keyframes a3{
+    to{
+        margin-left: -800px;
+    }
+}

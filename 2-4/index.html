@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    #num {
+        font-size: 0;
+    }
+
+    #num dd {
+        width: 40px;
+        height: 40px;
+        background: #f00;
+        display: inline-block;
+        margin: 0;
+        font-size: initial;
+        text-align: center;
+        line-height: 40px;
+        color: #fff;
+        margin: 10px 10px 0 0;
+    }
+    #err{
+        color: #f00;
+        font-weight: 900;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="text" type="text">
+        <button id="li">左侧入</button>
+        <button id="ri">右侧入</button>
+        <button id="lo">左侧出</button>
+        <button id="ro">右侧出</button>
+        <span id="err"></span>
+    </div>
+    <dl id="num"></dl>
+    <script type="text/javascript">
+    function $(id) {
+        return document.getElementById(id);
+    };
+
+    // 获取文本
+    function getNum(id){
+        return $(id).value;
+    }
+
+    //验证输入内容是否合法
+    function checkValue(value){
+        var reg = /^(\d){1,4}$/g;
+        if(!reg.test(value)){
+            $("err").innerText="请输入1~4位数字!";
+            return ;
+        }
+        $("err").innerText="";
+        return true;
+    }
+
+    // 创建节点
+    function createNode(){
+        var node=document.createElement("dd");
+        node.innerText=getNum("text");
+        node.addEventListener("click",removeNode);
+        return node;
+    }
+
+    // 删除点击节点
+    function removeNode(){
+        alert(this.innerText);
+        $("num").removeChild(this);
+    }
+
+    // 左侧入
+    function liHandle(){
+        var dd=createNode();
+        $("text").value="";
+        $("text").focus();
+        if(!checkValue(dd.innerText)){
+            return ;
+        }
+        $("num").insertBefore(dd,$("num").firstChild);
+    }
+
+    // 右侧入
+    function riHandle(){
+        var dd=createNode();
+        $("text").value="";
+        $("text").focus();
+        if(!checkValue(dd.innerText)){
+            return ;
+        }
+        $("num").insertBefore(dd,$("num").lastChild);
+    }
+
+    // 左侧出
+    function loHandle(){
+        alert($("num").firstChild.innerText);
+        $("num").removeChild($("num").firstChild);
+    }
+
+    // 右侧出
+    function roHandle(){
+        alert($("num").lastChild.innerText);
+        $("num").removeChild($("num").lastChild);
+    }
+
+    function init(){
+        $("li").addEventListener("click",liHandle);
+        $("ri").addEventListener("click",riHandle);
+        $("lo").addEventListener("click",loHandle);
+        $("ro").addEventListener("click",roHandle);
+    }
+
+    init();
+    </script>
+</body>
+
+</html>

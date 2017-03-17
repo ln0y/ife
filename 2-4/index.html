@@ -44,7 +44,7 @@
     };
 
     // 获取文本
-    function getNum(id){
+    function getText(id){
         return $(id).value;
     }
 
@@ -62,7 +62,7 @@
     // 创建节点
     function createNode(){
         var node=document.createElement("dd");
-        node.innerText=getNum("text");
+        node.innerText=getText("text");
         node.addEventListener("click",removeNode);
         return node;
     }

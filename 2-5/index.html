@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    #num {
+        font-size: 0;
+        margin: 10px 0;
+        height: 220px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: flex-end;
+        background: #eee;
+        box-sizing: border-box;
+        border: 1px solid #bbb;
+        max-width: 1500px;
+        overflow: auto;
+    }
+
+    #num dd {
+        width: 20px;
+        height: 0px;
+        background-image: -webkit-linear-gradient(bottom, rgb(122, 153, 217) 44%, rgb(73, 125, 189) 72%, rgb(28, 58, 148) 90%);
+        background-image: -moz-linear-gradient(bottom, rgb(122, 153, 217) 44%, rgb(73, 125, 189) 72%, rgb(28, 58, 148) 90%);
+        font-size: initial;
+        text-align: center;
+        color: #fff;
+        margin: 0 2px;
+        font-family: "Microsoft YaHei";
+        transition: height .2s ease-in-out;
+    }
+
+    #err {
+        color: #f00;
+        font-weight: 900;
+    }
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+        background-color: #fff;
+    }
+    /*定义滚动条轨道 内阴影+圆角*/
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+    /*定义滑块 内阴影+圆角*/
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .6);
+        background-color: #f00;
+        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%);
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .7);
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, .8);
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="text" type="text">
+        <button id="li">左侧入</button>
+        <button id="ri">右侧入</button>
+        <button id="lo">左侧出</button>
+        <button id="ro">右侧出</button>
+        <button id="sort">排序</button>
+        <span id="err"></span>
+    </div>
+    <dl id="num"></dl>
+    <script type="text/javascript">
+    var nodeNumber = 60; //节点个数
+    function $(id) {
+        return document.getElementById(id);
+    };
+
+    // 获取输入文本
+    function getText(id) {
+        return $(id).value.replace(/^0+/, "");
+    }
+
+    //验证输入内容是否合法
+    function checkValue(value) {
+        var reg = /^([1-9]\d|100)$/g;
+        if (!reg.test(value)) {
+            $("err").innerText = "请输入10~100数字!";
+            return false;
+        }
+        $("err").innerText = "";
+        return true;
+    }
+
+    // 创建节点
+    function createNode() {
+        var node = document.createElement("dd");
+        node.innerText = getText("text");
+        node.addEventListener("click", removeNode);
+        node.style.height = getText("text") * 2 + "px";
+        return node;
+    }
+
+    // 删除点击节点
+    function removeNode() {
+        alert(this.innerText);
+        $("num").removeChild(this);
+    }
+
+    // 判断节点数量
+    function nodeCount(nodenum) {
+        if ($("num").children.length >= nodenum) {
+            return false;
+        }
+        return true;
+    }
+
+    // 左侧入
+    function liHandle() {
+        var dd = createNode();
+        $("text").value = "";
+        $("text").focus();
+        if (!checkValue(dd.innerText)) {
+            return false;
+        }
+        if (!nodeCount(nodeNumber)) {
+            alert("数量最多为" + nodeNumber + "个!");
+            return false;
+        }
+        $("num").insertBefore(dd, $("num").firstChild);
+    }
+
+    // 右侧入
+    function riHandle() {
+        var dd = createNode();
+        $("text").value = "";
+        $("text").focus();
+        if (!checkValue(dd.innerText)) {
+            return false;
+        }
+        if (!nodeCount(nodeNumber)) {
+            alert("数量最多为" + nodeNumber + "个!");
+            return false;
+        }
+        $("num").appendChild(dd);
+    }
+
+    // 左侧出
+    function loHandle() {
+        alert($("num").firstChild.innerText);
+        $("num").removeChild($("num").firstChild);
+    }
+
+    // 右侧出
+    function roHandle() {
+        alert($("num").lastChild.innerText);
+        $("num").removeChild($("num").lastChild);
+    }
+
+    // 获取节点的数值
+    function getNum() {
+        var arr = [];
+        for (var i = 0; i < $("num").children.length; i++) {
+            arr[i] = parseInt($("num").children[i].innerText);
+        }
+        return arr;
+    }
+
+    // 交换排序
+    function swapSort(array) {
+        var i, j, d;
+        for (i = 0; i < array.length; i++) {
+            for (j = i + 1; j < array.length; j++) {
+                if (array[i] < array[j]) {
+                    d = array[j];
+                    array[j] = array[i];
+                    array[i] = d;
+                }
+            }
+        }
+        return array;
+    }
+
+    // 冒泡排序
+    function bubbleSort(array) {
+        var i, j, d;
+        var flag = 1;
+        for (i = 0; i < array.length && flag; i++) {
+            flag = 0;
+            for (j = array.length - 1; j > i; j--) {
+                if (array[j] > array[j - 1]) {
+                    d = array[j];
+                    array[j] = array[j - 1];
+                    array[j - 1] = d;
+                    flag = 1;
+                }
+            }
+        }
+        return array;
+    }
+
+    // 系统排序
+    function systemSort(array) {
+        array.sort(function(a, b) {
+            return b - a;
+        });
+        return array;
+    }
+
+    // 排序
+    function sortHandle() {
+        var arr = getNum();
+        arr = bubbleSort(arr);
+        for (var i = 0; i < arr.length; i++) {
+            $("num").children[i].innerText = arr[i];
+            $("num").children[i].style.height = arr[i] * 2 + "px";
+        }
+    }
+
+    function init() {
+        $("li").addEventListener("click", liHandle);
+        $("ri").addEventListener("click", riHandle);
+        $("lo").addEventListener("click", loHandle);
+        $("ro").addEventListener("click", roHandle);
+        $("sort").addEventListener("click", sortHandle);
+    }
+
+    init();
+    </script>
+</body>
+
+</html>

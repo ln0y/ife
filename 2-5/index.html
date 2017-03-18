@@ -111,7 +111,7 @@
         var node = document.createElement("dd");
         node.innerText = getText("text");
         node.addEventListener("click", removeNode);
-        node.style.height = getText("text") * 2 + "px";
+        node.style.height = `${node.innerText * 2}px`;
         return node;
     }
 
@@ -132,7 +132,7 @@
     // 左侧入
     function liHandle() {
         var dd = createNode();
-        $("text").value = "";
+        $("text").value = ~~(Math.random() * 90) + 10;;
         $("text").focus();
         if (!checkValue(dd.innerText)) {
             return false;
@@ -147,7 +147,7 @@
     // 右侧入
     function riHandle() {
         var dd = createNode();
-        $("text").value = "";
+        $("text").value = ~~(Math.random() * 90) + 10;;
         $("text").focus();
         if (!checkValue(dd.innerText)) {
             return false;
@@ -196,21 +196,22 @@
     }
 
     // 冒泡排序
-    function bubbleSort(array) {
-        var i, j, d;
-        var flag = 1;
-        for (i = 0; i < array.length && flag; i++) {
-            flag = 0;
-            for (j = array.length - 1; j > i; j--) {
-                if (array[j] > array[j - 1]) {
-                    d = array[j];
-                    array[j] = array[j - 1];
-                    array[j - 1] = d;
-                    flag = 1;
-                }
-            }
-        }
-        return array;
+    function bubbleSort(node) {
+        // var i, j, d;
+        // var flag = 1;
+        // for (i = 0; i < array.length && flag; i++) {
+        //     flag = 0;
+        //     for (j = array.length - 1; j > i; j--) {
+        //         if (array[j] > array[j - 1]) {
+        //             d = array[j];
+        //             array[j] = array[j - 1];
+        //             array[j - 1] = d;
+        //             flag = 1;
+        //         }
+        //     }
+        // }
+        // return array;
+
     }
 
     // 系统排序
@@ -223,15 +224,40 @@
 
     // 排序
     function sortHandle() {
-        var arr = getNum();
-        arr = bubbleSort(arr);
-        for (var i = 0; i < arr.length; i++) {
-            $("num").children[i].innerText = arr[i];
-            $("num").children[i].style.height = arr[i] * 2 + "px";
+        // var arr = getNum();
+        // arr = bubbleSort(arr);
+        // for (var i = 0; i < arr.length; i++) {
+        //     $("num").children[i].innerText = arr[i];
+        //     $("num").children[i].style.height = arr[i] * 2 + "px";
+        // }
+        var array = $("num").children;
+        let time = 500;
+        let timer;
+        let count = 0;
+        for (let i = 0; i < array.length; i++) {
+            for (let j = array.length - 1; j > i; j--) {
+                timer = setTimeout(function() {
+                    clearTimeout(timer);
+                    [].forEach.call($("num").children, function(its) {
+                        its.style.boxShadow = `none`;
+                    });
+                    array[j].style.boxShadow = `inset 0 0 2px 3px red`;
+                    array[j - 1].style.boxShadow = `inset 0 0 2px 2px red`;
+                    if (~~(array[j].innerText) > ~~(array[j - 1].innerText)) {
+                        $("num").insertBefore(array[j], array[j - 1]);
+                    }
+                }, time * count++);
+            }
         }
+        setTimeout(function() {
+            [].forEach.call($("num").children, function(its) {
+                its.style.boxShadow = `none`;
+            });
+        }, time * count)
     }
 
     function init() {
+        $("text").value = ~~(Math.random() * 90) + 10;
         $("li").addEventListener("click", liHandle);
         $("ri").addEventListener("click", riHandle);
         $("lo").addEventListener("click", loHandle);

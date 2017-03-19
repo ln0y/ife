@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    #num {
+        font-size: 0;
+    }
+
+    #num dd {
+        height: 40px;
+        padding: 0 10px;
+        background: #f00;
+        display: inline-block;
+        margin: 0;
+        font-size: initial;
+        text-align: center;
+        line-height: 40px;
+        color: #fff;
+        margin: 10px 10px 0 0;
+    }
+    #text{
+        width: 400px;
+        height: 200px;
+    }
+    .fl{
+        animation: flash 1s ease-out infinite;
+    }
+    @keyframes flash{
+        from{
+            box-shadow: 0 0 3px 3px transparent;
+        }
+        to{
+            box-shadow: 0 0 3px 3px #00f;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <textarea id="text"></textarea>
+        <button id="li">左侧入</button>
+        <button id="ri">右侧入</button>
+        <button id="lo">左侧出</button>
+        <button id="ro">右侧出</button>
+        <input type="text" id="keyWord">
+        <button id="search">搜索</button>
+    </div>
+    <dl id="num"></dl>
+    <script type="text/javascript">
+    function $(id) {
+        return document.getElementById(id);
+    };
+
+    // 获取文本
+    function getText(id) {
+        return $(id).value;
+    }
+
+    // 处理输入内容
+    function filterValue(value) {
+        var reg = /[^a-zA-Z0-9\u4e00-\u9fa5]+/g;
+        value = value.replace(reg, " ");
+        var arr = [];
+        arr = value.split(' ');
+        return arr;
+    }
+
+    // 创建节点
+    function createNode(value) {
+        var node = document.createElement("dd");
+        node.innerText = value;
+        node.addEventListener("click", removeNode);
+        return node;
+    }
+
+    // 删除点击节点
+    function removeNode() {
+        alert(this.innerText);
+        $("num").removeChild(this);
+    }
+
+    // 左侧入
+    function liHandle() {
+        var arr = filterValue(getText("text"));
+        for (var i = 0; i < arr.length; i++) {
+            var dd = createNode(arr[i]);
+            if(dd.innerText){
+                $("num").insertBefore(dd, $("num").firstChild);
+            }
+        }
+        $("text").value = "";
+        $("text").focus();
+    }
+
+    // 右侧入
+    function riHandle() {
+        var arr = filterValue(getText("text"));
+        for (var i = 0; i < arr.length; i++) {
+            var dd = createNode(arr[i]);
+            if(dd.innerText){
+                $("num").appendChild(dd, $("num").lastChild);
+            }
+        }
+        $("text").value = "";
+        $("text").focus();
+    }
+
+    // 左侧出
+    function loHandle() {
+        alert($("num").firstChild.innerText);
+        $("num").removeChild($("num").firstChild);
+    }
+
+    // 右侧出
+    function roHandle() {
+        alert($("num").lastChild.innerText);
+        $("num").removeChild($("num").lastChild);
+    }
+
+    // 处理搜索
+    function seaechHandle(){
+        [].forEach.call($("num").children,function(its){
+            its.className= its.className.replace(" fl","");
+        })
+        var reg = getText("keyWord").replace(/[^a-zA-Z0-9\u4e00-\u9fa5].+/,"");
+        for(let i=0;i<$("num").children.length;i++){
+            let str = $("num").children[i].innerText;
+            if(str.match(reg)){
+                $("num").children[i].className=" fl";
+            }
+        }
+    }
+
+    function init() {
+        $("li").addEventListener("click", liHandle);
+        $("ri").addEventListener("click", riHandle);
+        $("lo").addEventListener("click", loHandle);
+        $("ro").addEventListener("click", roHandle);
+        $("search").addEventListener("click", seaechHandle);
+    }
+
+    init();
+    </script>
+</body>
+
+</html>

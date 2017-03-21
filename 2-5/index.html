@@ -231,13 +231,12 @@
         //     $("num").children[i].style.height = arr[i] * 2 + "px";
         // }
         var array = $("num").children;
-        let time = 500;
+        let time = 100;
         let timer;
         let count = 0;
         for (let i = 0; i < array.length; i++) {
             for (let j = array.length - 1; j > i; j--) {
                 timer = setTimeout(function() {
-                    clearTimeout(timer);
                     [].forEach.call($("num").children, function(its) {
                         its.style.boxShadow = `none`;
                     });

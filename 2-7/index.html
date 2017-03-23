@@ -4,11 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        display: flex;
+    }
+
+    div {
+        outline: 1px solid #bbb;
+        display: flex;
+        margin: 30px;
+        width: 100%;
+        background: #fff;
+        flex-wrap: nowrap;
+    }
+
+    button {
+        outline: none;
+        width: 100px;
+        height: 30px;
+        margin-left: 20px;
+    }
+    </style>
 </head>
 
 <body>
+    <section>
+        <div id="tree">
+            <div>
+                <div style="height: 100px;"></div>
+                <div></div>
+            </div>
+            <div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </section>
+    <button id="preOrder">前序遍历</button>
+    <button id="inOrder">中序遍历</button>
+    <button id="postOrder">后序遍历</button>
+    <span>intervaltime</span>
+    <input type="text" id="intervalTime" value="500">
     <script type="text/javascript">
+    let nodeArr = []; //遍历节点的结果
+    let nodeClr = []; //清理节点
+    let intervalTime; //间隔时间
+    let node; //当前节点
+    let timer; //定时器
 
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    function getIntervalTime() {
+        return parseInt($('intervalTime').value.trim()) || 500;
+    }
+
+    // 前序遍历
+    function preOrderTraverse(node) {
+        if (!node) {
+            return;
+        }
+        nodeArr.push(node);
+        preOrderTraverse(node.firstElementChild);
+        preOrderTraverse(node.lastElementChild);
+    }
+
+    // 中序遍历
+    function inOrderTraverse(node) {
+        if (!node) {
+            return;
+        }
+        inOrderTraverse(node.firstElementChild);
+        nodeArr.push(node);
+        inOrderTraverse(node.lastElementChild);
+    }
+
+    // 后序遍历
+    function postOrderTraverse(node) {
+        if (!node) {
+            return;
+        }
+        postOrderTraverse(node.firstElementChild);
+        postOrderTraverse(node.lastElementChild);
+        nodeArr.push(node);
+    }
+
+    // 绘制颜色
+    function draw() {
+        if (node) {
+            node.style.backgroundColor = `green`;
+        }
+        node = nodeArr.shift();
+        if (!node) {
+            clearInterval(timer);
+            return;
+        }
+        node.style.backgroundColor = `red`;
+    }
+
+
+    function clear() {
+        intervalTime = getIntervalTime();
+        clearInterval(timer);
+        [].forEach.call(nodeClr, function(item) {
+            item.style.backgroundColor = `white`;
+        });
+        nodeArr = [];
+    }
+
+    function preOrderHandle() {
+        clear();
+        preOrderTraverse($('tree'));
+        nodeClr = nodeArr.slice();//存储一份清颜色
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function inOrderHandle() {
+        clear();
+        inOrderTraverse($('tree'));
+        nodeClr = nodeArr.slice();
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function postOrderHandle() {
+        clear();
+        postOrderTraverse($('tree'));
+        nodeClr = nodeArr.slice();
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function init() {
+        $('preOrder').addEventListener("click", preOrderHandle);
+        $('inOrder').addEventListener("click", inOrderHandle);
+        $('postOrder').addEventListener("click", postOrderHandle);
+
+    }
+
+    init();
     </script>
 </body>
 

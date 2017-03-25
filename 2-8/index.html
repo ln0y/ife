@@ -11,12 +11,19 @@
     }
 
     section {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
 
     div {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
         flex: 1;
+        -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
         margin: 10px;
         min-height: 50px;
@@ -24,7 +31,8 @@
         outline: 1px solid #bbb;
         background-color: #fff;
         font-weight: initial;
-        transition: background-color .5s ease-out;
+        -webkit-transition: background-color .2s ease-out;
+        transition: background-color .2s ease-out;
     }
 
     button {
@@ -43,8 +51,18 @@
         background-image: -webkit-linear-gradient(left, red, yellow 25%, red 50%, yellow 75%, red 100%);
         -webkit-background-clip: text;
         background-size: 200% 100%;
-        animation: bingo 3s linear infinite,flash 1s cubic-bezier(0.4, 0, 0.2, 1) alternate infinite ;
+        -webkit-animation: bingo 3s linear infinite, flash 1s cubic-bezier(0.4, 0, 0.2, 1) alternate infinite;
+        animation: bingo 3s linear infinite, flash 1s cubic-bezier(0.4, 0, 0.2, 1) alternate infinite;
         font-weight: 900;
+    }
+
+    @-webkit-keyframes bingo {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -100% 0;
+        }
     }
 
     @keyframes bingo {
@@ -53,6 +71,15 @@
         }
         100% {
             background-position: -100% 0;
+        }
+    }
+
+    @-webkit-keyframes flash {
+        from {
+            box-shadow: 0 0 3px 3px transparent;
+        }
+        to {
+            box-shadow: 0 0 3px 3px #7df;
         }
     }
 
@@ -119,6 +146,7 @@
     let intervalTime; //间隔时间
     let node; //当前节点
     let timer; //定时器
+    let flag; //搜索结果
 
     function $(id) {
         return document.getElementById(id);
@@ -163,11 +191,15 @@
             let str = getKeyWord();
             if (str === node.firstChild.textContent.trim()) {
                 node.classList.add("target");
+                flag = 1;
             }
         }
         node = nodeArr.shift();
         if (!node) {
             clearInterval(timer);
+            if (!flag) {
+                alert(`没有找到"${getKeyWord()}"`);
+            }
             return;
         }
         node.style.backgroundColor = `red`;
@@ -182,6 +214,7 @@
             item.classList.remove("target");
         });
         nodeArr = [];
+        flag = 0;
     }
 
     function traverseDFSHandle() {

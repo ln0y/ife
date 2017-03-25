@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        display: flex;
+    }
+
+    div {
+        display: flex;
+        flex: 1;
+        flex-wrap: nowrap;
+        margin: 10px;
+        min-height: 50px;
+        color: #000;
+        outline: 1px solid #bbb;
+        background: #fff;
+        font-weight: initial;
+    }
+
+    button {
+        outline: none;
+        width: 100px;
+        height: 30px;
+        margin-left: 20px;
+    }
+
+    input[type=text] {
+        width: 100px;
+    }
+
+    .target {
+        color: transparent;
+        background-image: -webkit-linear-gradient(left, red, yellow 25%, red 50%, yellow 75%, red 100%);
+        -webkit-background-clip: text;
+        background-size: 200% 100%;
+        animation: bingo 3s linear infinite,flash 1s cubic-bezier(0.4, 0, 0.2, 1) alternate infinite ;
+        font-weight: 900;
+    }
+
+    @keyframes bingo {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -100% 0;
+        }
+    }
+
+    @keyframes flash {
+        from {
+            box-shadow: 0 0 3px 3px transparent;
+        }
+        to {
+            box-shadow: 0 0 3px 3px #7df;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div id="tree">
+            Lemon
+            <div>
+                Pear
+                <div>
+                    Apple
+                    <div>Banana</div>
+                    <div>Grape</div>
+                    <div>orange</div>
+                    <div>coconut</div>
+                </div>
+                <div>Mango</div>
+                <div>
+                    pineapple
+                    <div>Cherry</div>
+                    <div>watermelon</div>
+                </div>
+            </div>
+            <div>
+                strawberry
+                <div>
+                    plum
+                    <div>peach</div>
+                    <div>apricot</div>
+                    <div>guava</div>
+                </div>
+                <div>
+                    papaya
+                    <div>
+                        fig
+                        <div>pumelo</div>
+                    </div>
+                    <div>lime</div>
+                </div>
+            </div>
+            <div>lychee</div>
+        </div>
+    </section>
+    <span>search</span>
+    <input type="text" id="keyWord" value="Mango">
+    <button id="DFS">深度优先搜索</button>
+    <button id="BFS">广度优先搜索</button>
+    <span>intervaltime</span>
+    <input type="text" id="intervalTime" value="300">
+    <script type="text/javascript">
+    let nodeArr = []; //遍历节点的结果
+    let nodeClr = []; //清理节点
+    let intervalTime; //间隔时间
+    let node; //当前节点
+    let timer; //定时器
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    function getIntervalTime() {
+        return parseInt($('intervalTime').value.trim()) || 500;
+    }
+
+    function getKeyWord() {
+        return $('keyWord').value.trim();
+    }
+
+    // 深度优先搜索
+    function traverseDFS(node) {
+        nodeArr.push(node);
+        for (let i = 0; i < node.children.length; i++) {
+            traverseDFS(node.children[i]);
+        }
+    }
+
+    // 广度优先搜索
+    function traverseBFS(node) {
+        let queue = [];
+        nodeArr.push(node);
+        queue.push(node);
+        let curNode = queue.shift();
+        while (curNode) {
+            for (let i = 0; i < curNode.children.length; i++) {
+                queue.push(curNode.children[i]);
+                nodeArr.push(curNode.children[i]);
+            }
+            curNode = queue.shift();
+        }
+    }
+
+    // 绘制颜色
+    function draw() {
+        if (node) {
+            node.style.backgroundColor = `green`;
+            // 匹配字符串
+            let str = getKeyWord();
+            if (str === node.firstChild.textContent.trim()) {
+                node.classList.add("target");
+            }
+        }
+        node = nodeArr.shift();
+        if (!node) {
+            clearInterval(timer);
+            return;
+        }
+        node.style.backgroundColor = `red`;
+    }
+
+
+    function clear() {
+        intervalTime = getIntervalTime();
+        clearInterval(timer);
+        [].forEach.call(nodeClr, function(item) {
+            item.style.backgroundColor = `white`;
+            item.classList.remove("target");
+        });
+        nodeArr = [];
+    }
+
+    function traverseDFSHandle() {
+        clear();
+        traverseDFS($('tree'));
+        nodeClr = nodeArr.slice(); //存储一份清颜色
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function traverseBFSHandle() {
+        clear();
+        traverseBFS($('tree'));
+        nodeClr = nodeArr.slice();
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function init() {
+        $('DFS').addEventListener("click", traverseDFSHandle);
+        $('BFS').addEventListener("click", traverseBFSHandle);
+    }
+
+    init();
+    </script>
+</body>
+
+</html>

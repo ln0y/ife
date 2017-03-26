@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    div {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        margin: 10px;
+        min-height: 50px;
+        color: #000;
+        outline: 1px dashed #bbb;
+        background-color: #fff;
+        font-weight: initial;
+        -webkit-transition: background-color .2s ease-out;
+        transition: background-color .2s ease-out;
+    }
+
+    fieldset {
+        width: 250px;
+        padding: 5px;
+    }
+
+    button {
+        outline: none;
+        padding: 3px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+    input[type=text] {
+        display: block;
+        margin-bottom: 5px;
+        padding: 3px;
+    }
+
+    .target {
+        -webkit-animation: flash 1s cubic-bezier(0.4, 0, 0.2, 1) alternate infinite;
+        animation: flash 1s cubic-bezier(0.4, 0, 0.2, 1) alternate infinite;
+        font-weight: 900;
+    }
+
+    @-webkit-keyframes flash {
+        from {
+            box-shadow: 0 0 5px 5px transparent;
+        }
+        to {
+            box-shadow: 0 0 5px 5px #7df;
+        }
+    }
+
+    @keyframes flash {
+        from {
+            box-shadow: 0 0 5px 5px transparent;
+        }
+        to {
+            box-shadow: 0 0 5px 5px #7df;
+        }
+    }
+
+    .traverse {
+        background-color: green;
+    }
+
+    .traversing {
+        background-color: red;
+    }
+
+    #choose {
+        background-color: yellow;
+    }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div id="tree">
+            Lemon
+            <div>
+                Pear
+                <div>
+                    Apple
+                    <div>Banana</div>
+                    <div>Grape</div>
+                    <div>orange</div>
+                    <div>coconut</div>
+                </div>
+                <div>Mango</div>
+                <div>
+                    pineapple
+                    <div>Cherry</div>
+                    <div>watermelon</div>
+                </div>
+            </div>
+            <div>
+                strawberry
+                <div>
+                    plum
+                    <div>peach</div>
+                    <div>apricot</div>
+                    <div>guava</div>
+                </div>
+                <div>
+                    papaya
+                    <div>
+                        fig
+                        <div>pumelo</div>
+                    </div>
+                    <div>lime</div>
+                </div>
+            </div>
+            <div>lychee</div>
+        </div>
+    </section>
+    <fieldset>
+        <legend>Search</legend>
+        <input type="text" id="keyWord" value="Mango">
+    </fieldset>
+    <fieldset>
+        <legend>intervaltime</legend>
+        <input type="text" id="intervalTime" value="300">
+    </fieldset>
+    <fieldset>
+        <legend>遍历</legend>
+        <button id="DFS">深度优先搜索</button>
+        <button id="BFS">广度优先搜索</button>
+    </fieldset>
+    <fieldset>
+        <legend>修改节点</legend>
+        <input type="text" id="addText">
+        <button id="add">添加</button>
+        <button id="remove">删除</button>
+    </fieldset>
+    <script type="text/javascript">
+    let nodeArr = []; //遍历节点的结果
+    let nodeClr = []; //清理节点
+    let intervalTime; //间隔时间
+    let node; //当前节点
+    let timer; //定时器
+    let flag; //搜索结果
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    function getIntervalTime() {
+        return parseInt($('intervalTime').value.trim()) || 500;
+    }
+
+    function getText(id) {
+        return $(id).value.trim();
+    }
+
+    // 深度优先搜索
+    function traverseDFS(node) {
+        nodeArr.push(node);
+        for (let i = 0; i < node.children.length; i++) {
+            traverseDFS(node.children[i]);
+        }
+    }
+
+    // 广度优先搜索
+    function traverseBFS(node) {
+        let queue = [];
+        nodeArr.push(node);
+        queue.push(node);
+        let curNode = queue.shift();
+        while (curNode) {
+            for (let i = 0; i < curNode.children.length; i++) {
+                queue.push(curNode.children[i]);
+                nodeArr.push(curNode.children[i]);
+            }
+            curNode = queue.shift();
+        }
+    }
+
+    // 选中元素
+    function chooseElement(e) {
+        if (!e.target.id) {
+            e.target.id = "choose";
+        } else {
+            e.target.removeAttribute("id");
+        }
+    }
+
+    // 删除节点
+    function removeElement() {
+        while ($("choose")) {
+            $("choose").remove();
+        }
+    }
+
+    // 添加节点
+    function addElement() {
+        let str = getText("addText")
+        if(!str){
+            return;
+        }
+        let chooses = document.querySelectorAll("#choose");
+        chooses.forEach(function(item) {
+            let node = document.createElement("div");
+            node.innerText = str;
+            item.append(node);
+        })
+    }
+
+    // 绘制颜色
+    function draw() {
+        if (node) {
+            node.classList.remove("traversing");
+            node.classList.add("traverse");
+            // 匹配字符串
+            let str = getText("keyWord");
+            if (str === node.firstChild.textContent.trim()) {
+                node.classList.add("target");
+                flag = 1;
+            }
+        }
+        node = nodeArr.shift();
+        if (!node) {
+            clearInterval(timer);
+            if (!flag) {
+                alert(`没有找到"${getText("keyWord")}"`);
+            }
+            return;
+        }
+        node.classList.add("traversing");
+    }
+
+    // 清空颜色及遍历结果
+    function clear() {
+        intervalTime = getIntervalTime();
+        clearInterval(timer);
+        [].forEach.call(nodeClr, function(item) {
+            item.classList.remove("traversing");
+            item.classList.remove("traverse");
+            item.classList.remove("target");
+        });
+        nodeArr = [];
+        flag = 0;
+    }
+
+    function traverseDFSHandle() {
+        clear();
+        traverseDFS($('tree'));
+        nodeClr = nodeArr.slice(); //存储一份清颜色
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function traverseBFSHandle() {
+        clear();
+        traverseBFS($('tree'));
+        nodeClr = nodeArr.slice();
+        timer = setInterval(draw, intervalTime);
+    }
+
+    function init() {
+        $('DFS').addEventListener("click", traverseDFSHandle);
+        $('BFS').addEventListener("click", traverseBFSHandle);
+        $('tree').addEventListener("click", chooseElement);
+        $('add').addEventListener("click", addElement);
+        $('remove').addEventListener("click", removeElement);
+    }
+
+    init();
+    </script>
+</body>
+
+</html>

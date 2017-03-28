@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 100%;
+}
+
+.box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 320px;
+    height: 200px;
+    position: relative;
+}
+
+.box::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/1.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+    -webkit-animation: gif 8s steps(11) infinite;
+            animation: gif 8s steps(11) infinite;
+}
+
+.box:hover::before {
+    -webkit-filter: blur(3px);
+            filter: blur(3px);
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+}
+
+.content {
+    width: 90%;
+    height: 85%;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+.content::after,
+.content::before {
+    content: "";
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    opacity: 0;
+    border-width: 2px;
+    border-style: solid;
+    -webkit-transition: all .5s ease-out;
+    transition: all .5s ease-out;
+}
+
+.content::before {
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    border-color: #fff transparent;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+
+.content::after {
+    width: 100%;
+    height: 0;
+    top: 50%;
+    left: 0;
+    border-color: transparent #fff;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+
+.box:hover .content::before {
+    width: 100%;
+    opacity: 1;
+    -webkit-transition: all 1s cubic-bezier(0, 1, 0.3, 1);
+    transition: all 1s cubic-bezier(0, 1, 0.3, 1);
+}
+
+.box:hover .content::after {
+    height: 100%;
+    opacity: 1;
+    -webkit-transition: all 1s cubic-bezier(0, 1, 0.3, 1);
+    transition: all 1s cubic-bezier(0, 1, 0.3, 1);
+}
+
+.text {
+    opacity: 0;
+    -webkit-transform: translateY(20%);
+            transform: translateY(20%);
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+    color: transparent;
+}
+
+.title {
+    font-size: 25px;
+    margin-bottom: 20px;
+    background-image: -webkit-linear-gradient(left, rgba(216, 27, 96, 1), rgba(128, 222, 234, 1) 25%, rgba(216, 27, 96, 1) 50%, rgba(128, 222, 234, 1) 75%, rgba(216, 27, 96, 1) 100%);
+    -webkit-background-clip: text;
+    background-size: 200% 100%;
+    -webkit-animation: streamer 4s linear infinite;
+    animation: streamer 4s linear infinite;
+}
+
+.title_l {
+    font-weight: 900;
+    background-image: -webkit-linear-gradient(left, rgba(21, 101, 192, 1), rgba(174, 213, 129, 1) 25%, rgba(21, 101, 192, 1) 50%, rgba(174, 213, 129, 1) 75%, rgba(21, 101, 192, 1) 100%);
+    -webkit-background-clip: text;
+    background-size: 200% 100%;
+    -webkit-animation: streamer 4s linear infinite;
+    animation: streamer 4s linear infinite;
+}
+
+.box:hover .text {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+}
+
+@-webkit-keyframes streamer {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+@keyframes streamer {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+@-webkit-keyframes gif{
+    to{
+        background-position: -3665px 0;
+    }
+}
+@keyframes gif{
+    to{
+        background-position: -3665px 0;
+    }
+}

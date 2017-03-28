@@ -133,7 +133,7 @@ body {
 .title {
     font-size: 25px;
     margin-bottom: 20px;
-    background-image: -webkit-linear-gradient(left, rgba(216, 27, 96, 1), rgba(128, 222, 234, 1) 25%, rgba(216, 27, 96, 1) 50%, rgba(128, 222, 234, 1) 75%, rgba(216, 27, 96, 1) 100%);
+    background-image: -webkit-linear-gradient(45deg, rgba(216, 27, 96, 1), rgba(128, 222, 234, 1) 25%, rgba(216, 27, 96, 1) 50%, rgba(128, 222, 234, 1) 75%, rgba(216, 27, 96, 1) 100%);
     -webkit-background-clip: text;
     background-size: 200% 100%;
     -webkit-animation: streamer 4s linear infinite;

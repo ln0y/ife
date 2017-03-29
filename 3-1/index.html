@@ -115,9 +115,9 @@
                 $('f_name_des').style.color = "#60ba44";
                 $('f_name_txt').style.borderColor = "#60ba44";
             } else {
-                $('f_name_des').innerText = `${$('f_name').innerText}格式不正确`;
-                $('f_name_des').style.color = "#de000f";
-                $('f_name_txt').style.borderColor = "#de000f";
+                $('f_name_des').innerText = "必填，长度为4~16个字符";
+                $('f_name_des').removeAttribute("style");
+                $('f_name_txt').removeAttribute("style");
             }
         }
 

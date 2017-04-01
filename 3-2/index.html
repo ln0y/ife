@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: Microsoft YaHei;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+    }
+
+    form {
+        padding: 30px;
+    }
+
+    .from_its {
+        margin-bottom: 20px;
+    }
+
+    .from_name {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        vertical-align: middle;
+        font-weight: 900;
+        padding-right: 20px;
+    }
+
+    .from_txt {
+        outline: none;
+        width: 350px;
+        height: 40px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        padding: 0 0.5em;
+        box-sizing: border-box;
+        font-size: 16px;
+        color: #000 !important;
+    }
+
+    .from_txt:focus {
+        border: 1px solid #62aded;
+        box-shadow: 0 3px 10px -3px #62aded;
+    }
+
+    .from_btn {
+        outline: none;
+        border: 1px solid #2568a4;
+        border-radius: 5px;
+        background: #2f79ba;
+        color: #fff;
+        box-sizing: border-box;
+        padding: 10px 30px;
+        font-size: 16px;
+        cursor: pointer;
+        float: right;
+    }
+
+    .from_btn:hover {
+        background: #2a73b4;
+    }
+
+    .from_btn:active {
+        background: #2568a4;
+    }
+
+    .tips {
+        margin-top: 5px;
+        margin-left: 120px;
+        font-size: 15px;
+        color: #aaa;
+    }
+
+    .correct {
+        color: #60ba44;
+        border-color: #60ba44;
+    }
+
+    .error {
+        color: #de000f;
+        border-color: #de000f;
+    }
+    </style>
+</head>
+
+<body>
+    <section>
+        <form>
+            <div class="from_its">
+                <p class="from_name" id="f_name">名称</p>
+                <input class="from_txt" type="text" id="f_name_txt">
+                <p class="tips"></p>
+            </div>
+            <div class="from_its">
+                <p class="from_name" id="f_pwd">密码</p>
+                <input class="from_txt" type="password" id="f_pwd_txt">
+                <p class="tips"></p>
+            </div>
+            <div class="from_its">
+                <p class="from_name" id="f_repwd">密码确认</p>
+                <input class="from_txt" type="password" id="f_repwd_txt">
+                <p class="tips"></p>
+            </div>
+            <div class="from_its">
+                <p class="from_name" id="f_email">邮箱</p>
+                <input class="from_txt" type="text" id="f_email_txt">
+                <p class="tips"></p>
+            </div>
+            <div class="from_its">
+                <p class="from_name" id="f_tel">手机</p>
+                <input class="from_txt" type="text" id="f_tel_txt">
+                <p class="tips"></p>
+            </div>
+            <input class="from_btn" type="button" id="f_submit" value="提交">
+        </form>
+    </section>
+    <script type="text/javascript">
+    var $ = function(id) {
+        return document.getElementById(id);
+    }
+
+    // 检查是否为空
+    function checkEmpty(e) {
+        // 密码域可接受空格
+        return e.id == "f_pwd_txt" || e.id == "f_repwd_txt" ? (e.value ? true : false) : (e.value.trim() ? true : false);
+    }
+
+    // 获取字符长度
+    function getStrLen(str) {
+        let len = 0;
+        for (let i of str) {
+            i.codePointAt(0) <= 0xFF ? len++ : len += 2;
+        }
+        return len;
+    }
+
+    function removeClass(e, en) {
+        e.classList.remove("correct");
+        en.classList.remove("correct");
+        e.classList.add("error");
+        en.classList.add("error");
+    }
+
+    // 显示填写规则
+    function tips(e) {
+        let en = e.nextElementSibling;
+        e.classList.remove("correct");
+        en.classList.remove("correct");
+        e.classList.remove("error");
+        en.classList.remove("error");
+        if (e.id == "f_name_txt") {
+            en.innerText = "长度为4~16个字符";
+        } else if (e.id == "f_pwd_txt") {
+            en.innerText = "长度为6~18个的字母、数字和符号";
+
+        } else if (e.id == "f_repwd_txt") {
+            en.innerText = "再次输入相同密码";
+
+        } else if (e.id == "f_email_txt") {
+            en.innerText = "请输入电子邮箱";
+
+        } else if (e.id == "f_tel_txt") {
+            en.innerText = "请输入手机号码";
+        }
+        return;
+    }
+
+    // 检测名称
+    function checkName() {
+        let e = $('f_name_txt');
+        let len = getStrLen(e.value.trim());
+        let en = e.nextElementSibling;
+        if (len >= 4 && len <= 16) {
+            en.innerText = "名称格式正确";
+            e.classList.add("correct");
+            en.classList.add("correct");
+            return true;
+        } else {
+            en.innerText = "名称格式错误";
+            removeClass(e, en);
+            return false;
+        }
+    }
+
+    // 检测密码
+    function checkPwd() {
+        let e = $('f_pwd_txt');
+        let len = getStrLen(e.value);
+        let en = e.nextElementSibling;
+        if (len >= 6 && len <= 18) {
+            en.innerText = "密码可用";
+            e.classList.add("correct");
+            en.classList.add("correct");
+            return checkRepwd() ? true : false;
+        } else {
+            en.innerText = "密码格式错误";
+            removeClass(e, en);
+            return false;
+        }
+    }
+
+    // 检测相同密码
+    function checkRepwd() {
+        let e = $('f_repwd_txt');
+        let str = e.value;
+        let en = e.nextElementSibling;
+        if (str == $('f_pwd_txt').value) {
+            en.innerText = "密码相同";
+            e.classList.add("correct");
+            en.classList.add("correct");
+            e.classList.remove("error");
+            en.classList.remove("error");
+            return true;
+        } else {
+            en.innerText = "密码输入一致";
+            removeClass(e, en);
+            return false;
+        }
+    }
+
+    // 检测邮箱
+    function checkEmail() {
+        let reg = /^[a-z0-9]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i;
+        let e = $('f_email_txt');
+        let str = e.value;
+        let en = e.nextElementSibling;
+        if (reg.test(str)) {
+            en.innerText = "邮箱格式正确";
+            e.classList.add("correct");
+            en.classList.add("correct");
+            return true;
+        } else {
+            en.innerText = "邮箱格式错误";
+            removeClass(e, en);
+            return false;
+        }
+    }
+
+    // 检测手机
+    function checkTel() {
+        let reg = /^1\d{10}$/;
+        let e = $('f_tel_txt');
+        let str = e.value;
+        let en = e.nextElementSibling;
+        if (reg.test(str)) {
+            en.innerText = "手机格式正确";
+            e.classList.add("correct");
+            en.classList.add("correct");
+            return true;
+        } else {
+            en.innerText = "手机格式错误";
+            removeClass(e, en);
+            return false;
+        }
+    }
+
+    // 判断元素
+    function check(e) {
+        let str = e.id == "f_pwd_txt" || e.id == "f_repwd_txt" ? e.value : e.value.trim();
+        let len = getStrLen(str);
+        let en = e.nextElementSibling;
+        let ep = e.previousElementSibling;
+
+        if (!checkEmpty(e)) {
+            en.innerText = ep.innerText + "不可为空";
+            e.classList.add("error");
+            en.classList.add("error");
+            return;
+        }
+
+        if (e.id == "f_name_txt") {
+            checkName();
+        } else if (e.id == "f_pwd_txt") {
+            checkPwd();
+        } else if (e.id == "f_repwd_txt") {
+            checkRepwd();
+        } else if (e.id == "f_email_txt") {
+            checkEmail();
+        } else if (e.id == "f_tel_txt") {
+            checkTel();
+        }
+    }
+
+    function checkBtn() {
+        if (checkName() && checkPwd() && checkRepwd() && checkEmail() && checkTel()) {
+            alert("输入正确");
+        } else {
+            alert("输入有误");
+        }
+    }
+
+    // 初始化
+    function init() {
+        let inp = document.getElementsByTagName("input");
+        for (let i of inp) {
+            if (i.type == "text" || i.type == "password") {
+                i.addEventListener("blur", function() {
+                    check(this);
+                });
+                i.addEventListener("focus", function() {
+                    tips(this);
+                });
+            }
+        }
+        $('f_submit').addEventListener("click", checkBtn);
+    }
+
+    init();
+    </script>
+</body>
+
+</html>

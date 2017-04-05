@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    article {
+        width: 700px;
+    }
+
+    .choose {
+        display: flex;
+    }
+
+    .choose>div {
+        flex: 1;
+        text-align: center;
+        margin: 30px 0;
+    }
+    .choose input[type="radio"]{
+        display: none;
+    }
+    .choose label{
+        vertical-align: middle;
+    }
+    .choose input[type="radio"]+label{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border: 1px solid #bbb;
+        box-shadow: 0 1px 0px #bbb inset;
+    }
+    .choose input[type="radio"]:checked+label {
+        background: #39f;
+        border: 1px solid #1e77dd;
+        box-shadow: none;
+        position: relative;
+
+    }
+    .choose input[type="radio"]:checked+label::after{
+        content: "";
+        display: block;
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background: #fff;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border: 1px solid #1e77dd;
+    }
+
+    #student {
+        display: none;
+    }
+
+    .name {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        align-self: center;
+    }
+
+    #student>select {
+        height: 40px;
+        margin: 0 30px;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    #student>select:nth-child(2) {
+        flex: 1;
+    }
+
+    #student>select:nth-child(3) {
+        flex: 2;
+    }
+
+    #nostudent {
+        display: none;
+    }
+
+    #nostudent>input {
+        height: 40px;
+        margin: 0 30px;
+        flex: 1;
+        border-radius: 5px;
+        border: 1px solid #bbb;
+        outline: none;
+    }
+    #student>select:focus,#nostudent>input:focus{
+        box-shadow: 0 0 2px #00f;
+    }
+    .show{
+        display: flex !important;
+    }
+    </style>
+</head>
+
+<body>
+    <article>
+        <section class="choose">
+            <div>
+                <input type="radio" name="profession" id="c_student" checked>
+                <label for="c_student"></label>
+                <label for="c_student">在校生</label>
+            </div>
+            <div>
+                <input type="radio" name="profession" id="c_nostudent">
+                <label for="c_nostudent"></label>
+                <label for="c_nostudent">非在校生</label>
+            </div>
+        </section>
+        <section id="student" name="chooses">
+            <label class="name">学校</label>
+            <select>
+                <option>北京</option>
+                <option>上海</option>
+                <option>广州</option>
+            </select>
+            <select>
+                <option>北京大学</option>
+                <option>清华大学</option>
+                <option>复旦大学</option>
+            </select>
+        </section>
+        <section id="nostudent" name="chooses">
+            <label class="name">就业单位</label>
+            <input type="text" name="">
+        </section>
+    </article>
+    <script type="text/javascript">
+        let tmp = document.getElementsByName('profession');
+        function choose(){
+            [].forEach.call(document.getElementsByName('chooses'),function(item,index){
+                item.classList.remove("show");
+            })
+            for(let i = 0; i<tmp.length;i++){
+                if(tmp[i].checked){
+                    let str = tmp[i].id.split("_");
+                    let e = document.getElementById(str[1]);
+                    e.classList.add("show");
+                }
+            }
+        }
+        choose();
+        for(let i = 0; i<tmp.length;i++){
+            tmp[i].addEventListener("click",choose);
+        }
+
+    </script>
+</body>
+
+</html>

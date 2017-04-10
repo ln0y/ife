@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    .map {
+        outline: 1px solid #000;
+        display: flex;
+        flex-flow: row wrap;
+        width: 400px;
+        height: 400px;
+        position: relative;
+    }
+
+    .map>div {
+        width: 40px;
+        height: 40px;
+        outline: 0.5px solid #eee;
+    }
+
+    #box {
+        position: absolute;
+        background-image: -webkit-linear-gradient(top, #00f 25%, #f00 25%, #f00 100%);
+        outline: none !important;
+        top: 0;
+        left: 0;
+        transition-property: all;
+        transition-timing-function: ease-in-out;
+    }
+
+    .row {
+        margin-left: 40px;
+        display: flex;
+        width: 400px;
+    }
+
+    .row>div {
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        line-height: 40px;
+    }
+
+    .col {
+        height: 400px;
+    }
+
+    .col>div {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    section {
+        display: flex;
+        width: 440px;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    input[type="text"] {
+        margin-top: 20px;
+        margin-left: 40px;
+        height: 20px;
+    }
+
+    input[type="range"] {
+        vertical-align: middle;
+    }
+
+    button {
+        height: 26px;
+    }
+
+    fieldset {
+        max-width: 768px;
+    }
+
+    fieldset>button {
+        float: left;
+        margin: 2px 10px 2px 0;
+    }
+
+    fieldset>p {
+        margin: 0;
+        padding: 2px;
+        height: 26px;
+    }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="row">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+        </div>
+        <div class="col">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+        </div>
+        <div class="map" id="i_map">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </section>
+    <input type="text" id="command" placeholder="忽略大小写">
+    <button id="implement">执行</button>
+    <label>指令时间</label>
+    <input type="range" id="animationTime" max="2" min="0.1" step="0.1" value="0.3">
+    <output id="time"></output>
+    <fieldset>
+        <legend>COMMAND</legend>
+        <button id="go">前进</button>
+        <p>GO：向蓝色边所面向的方向前进一格</p>
+        <button id="tun_lef">向左转</button>
+        <p>TUN LEF：向左转</p>
+        <button id="tun_rig">向右转</button>
+        <p>TUN RIG：向右转</p>
+        <button id="tun_bac">向后转</button>
+        <p>TUN BAC：向后转</p>
+        <button id="tra_lef">向左移</button>
+        <p>TRA LEF：向屏幕的左侧移动一格，方向不变</p>
+        <button id="tra_top">向上移</button>
+        <p>TRA TOP：向屏幕的上面移动一格，方向不变</p>
+        <button id="tra_rig">向右移</button>
+        <p>TRA RIG：向屏幕的右侧移动一格，方向不变</p>
+        <button id="tra_bot">向下移</button>
+        <p>TRA BOT：向屏幕的下面移动一格，方向不变</p>
+        <button id="mov_lef">转向左移</button>
+        <p>MOV LEF：方向转向屏幕左侧，向屏幕的左侧移动一格</p>
+        <button id="mov_top">转向上移</button>
+        <p>MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格</p>
+        <button id="mov_rig">转向右移</button>
+        <p>MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格</p>
+        <button id="mov_bot">转向下移</button>
+        <p>MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格</p>
+    </fieldset>
+    <script type="text/javascript">
+    var $ = function(id) {
+        return document.getElementById(id);
+    }
+
+    // function getAngle(el) {
+    //     //var el = document.getElementById("divTransform");
+    //     var st = window.getComputedStyle(el, null);
+    //     var tr = st.getPropertyValue("-webkit-transform") ||
+    //         st.getPropertyValue("-moz-transform") ||
+    //         st.getPropertyValue("-ms-transform") ||
+    //         st.getPropertyValue("-o-transform") ||
+    //         st.getPropertyValue("transform") ||
+    //         "FAIL";
+
+    //     // With rotate(30deg)...
+    //     // matrix(0.866025, 0.5, -0.5, 0.866025, 0px, 0px)
+    //     console.log('Matrix: ' + tr);
+
+    //     // rotation matrix - http://en.wikipedia.org/wiki/Rotation_matrix
+
+    //     var values = tr.split('(')[1].split(')')[0].split(',');
+    //     var a = values[0];
+    //     var b = values[1];
+    //     var c = values[2];
+    //     var d = values[3];
+
+    //     var scale = Math.sqrt(a * a + b * b);
+
+    //     console.log('Scale: ' + scale);
+
+    //     // arc sin, convert from radians to degrees, round
+    //     var sin = b / scale;
+    //     // next line works for 30deg but not 130deg (returns 50);
+    //     var angle = Math.round(Math.asin(sin) * (180 / Math.PI));
+    //     // var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+
+    //     console.log('Rotate: ' + angle + 'deg');
+    // }
+
+    function Box(opt) {
+        // publicData
+        this.direction = opt.direction || 0; //0~3上右下左,用于判断碰撞
+        this.pos = opt.pos || [0, 0];
+        this.angle = opt.direction * 90; //用于旋转
+
+        // privateData
+        let ele = {};
+
+        // privateMethod
+        // 碰撞检测
+        function isEdge(x, y) {
+            if (x > 10 - 1) {
+                x--;
+            } else if (x < 0) {
+                x++;
+            }
+            if (y > 10 - 1) {
+                y--;
+            } else if (y < 0) {
+                y++;
+            }
+            return [x, y];
+        }
+
+        // 初始化
+        function init() {
+            let b = document.createElement('div');
+            b.id = "box";
+            $('i_map').appendChild(b);
+            ele = b;
+            this.render();
+        }
+
+        // privilegedMethod
+        // 移动
+        this.move = function(dir) {
+            switch (dir) {
+                case 0: // 上移
+                    this.pos = isEdge(this.pos[0], this.pos[1] - 1);
+                    break;
+                case 1: // 右移
+                    this.pos = isEdge(this.pos[0] + 1, this.pos[1]);
+                    break;
+                case 2: // 下移
+                    this.pos = isEdge(this.pos[0], this.pos[1] + 1);
+                    break;
+                case 3: // 左移
+                    this.pos = isEdge(this.pos[0] - 1, this.pos[1]);
+                    break;
+            }
+        };
+
+        // 渲染
+        this.render = function() {
+            ele.style.transitionDuration = $('time').value;
+            ele.style.left = this.pos[0] * 40 + "px";
+            ele.style.top = this.pos[1] * 40 + "px";
+            ele.style.transform = `rotateZ(${this.angle}deg)`;
+        };
+
+        init.call(this);
+    }
+
+    // publicMethod
+    Box.prototype = {
+        constructor: Box,
+
+        // 命令
+        command: function(cmd) {
+            let dir = this.direction;
+            let pos = this.pos;
+            let x = pos[0];
+            let y = pos[1];
+
+            switch (cmd) {
+                case "GO":
+                    this.move(dir);
+                    break;
+                case "TUN LEF":
+                    this.direction = (dir + 3) % 4;
+                    this.angle -= 90;
+                    break;
+                case "TUN RIG":
+                    this.direction = (dir + 1) % 4;
+                    this.angle += 90;
+                    break;
+                case "TUN BAC":
+                    this.direction = (dir + 2) % 4;
+                    this.angle += 180;
+                    break;
+                case "TRA LEF":
+                    this.move(3);
+                    break;
+                case "TRA TOP":
+                    this.move(0);
+                    break;
+                case "TRA RIG":
+                    this.move(1);
+                    break;
+                case "TRA BOT":
+                    this.move(2);
+                    break;
+                case "MOV LEF":
+                    this.direction = 3;
+                    this.angle = Math.ceil(this.angle / 360) * 360 - 90;
+                    this.move(this.direction);
+                    break;
+                case "MOV TOP":
+                    this.direction = 0;
+                    this.angle = Math.ceil(this.angle / 360) * 360;
+                    this.move(this.direction);
+                    break;
+                case "MOV RIG":
+                    this.direction = 1;
+                    this.angle = Math.floor(this.angle / 360) * 360 + 90;
+                    this.move(this.direction);
+                    break;
+                case "MOV BOT":
+                    this.direction = 2;
+                    this.angle = Math.floor(this.angle / 360) * 360 + 180;
+                    this.move(this.direction);
+                    break;
+                default:
+                    alert("未知指令!");
+                    $('command').value = "";
+                    break;
+            }
+            this.render();
+        }
+    };
+
+    function initCMD() {
+        $('implement').addEventListener('click', function(e) {
+            e.stopPropagation();
+            let cmd = $('command').value.trim().toUpperCase();
+            if (!cmd) return;
+            box.command(cmd);
+        });
+
+        $('time').value = $('animationTime').value + "s";
+        $('animationTime').addEventListener('change', function(e) {
+            e.stopPropagation();
+            $('time').value = this.value + "s";
+        });
+
+        let btn = document.querySelectorAll("fieldset>button");
+        for (let i of btn) {
+            i.addEventListener('click', function(e) {
+                e.stopPropagation();
+                let str = this.id.replace(/_/, " ").toUpperCase();
+                box.command(str);
+            });
+        }
+
+    }
+
+    let opt = {
+        direction: 0,
+        pos: [5, 5]
+    };
+
+    let box = new Box(opt);
+
+    initCMD();
+    </script>
+</body>
+
+</html>

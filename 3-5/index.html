@@ -425,8 +425,13 @@
         }
     };
 
+    function getEvent() {
+        return window.event || arguments.callee.caller.arguments[0];
+    }
+
     function initCMD() {
-        $('implement').addEventListener('click', function(e) {
+        $('implement').addEventListener('click', function() {
+            let e = getEvent();
             e.stopPropagation();
             let cmd = $('command').value.trim().toUpperCase();
             if (!cmd) return;
@@ -434,14 +439,16 @@
         });
 
         $('time').value = $('animationTime').value + "s";
-        $('animationTime').addEventListener('change', function(e) {
+        $('animationTime').addEventListener('change', function() {
+            let e = getEvent();
             e.stopPropagation();
             $('time').value = this.value + "s";
         });
 
         let btn = document.querySelectorAll("fieldset>button");
-        for (let i of btn) {
-            i.addEventListener('click', function(e) {
+        for (let i = 0; i < btn.length; i++) {
+            btn[i].addEventListener('click', function() {
+                let e = getEvent();
                 e.stopPropagation();
                 let str = this.id.replace(/_/, " ").toUpperCase();
                 box.command(str);

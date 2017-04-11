@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    function User(name) {
+        let vname = name;
+        this._name = name;
+    }
+    User.cname = "tom";
+    User.getName = function() {
+        // this === User
+        console.log(this.cname);
+        console.log(this._name);
+        console.log(this.vname);
+    };
+
+    let man = new User("jack");
+    User.getName(); // tom undefined undefined
+    man.getName(); // Uncaught TypeError: man.getName is not a function
+    </script>
+</body>
+
+</html>

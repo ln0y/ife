@@ -4,25 +4,482 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+        font-family: Microsoft YaHei;
+    }
+
+    body {
+        height: 2000px;
+    }
+
+    .popup {
+        width: 500px;
+        height: 300px;
+        min-width: 250px;
+        min-height: 200px;
+        max-width: 1024px;
+        max-height: 768px;
+        position: fixed;
+        border: 1px solid #00b7c3;
+        background: #e6e6e6;
+        -ms-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        z-index: 101;
+        display: none;
+        opacity: 0;
+        -webkit-transition: opacity .5s ease-in-out;
+        transition: opacity .5s ease-in-out;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        box-sizing: border-box;
+    }
+
+    .popup_header {
+        width: 100%;
+        height: 70px;
+        background: #76b9ed;
+        position: relative;
+    }
+
+    .popup_title {
+        height: 30px;
+        padding-left: 16px;
+        font-size: 14px;
+        line-height: 30px;
+        cursor: move;
+    }
+
+    .popup_close {
+        width: 45px;
+        height: 30px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .popup_close:hover {
+        background-color: #e81123;
+    }
+
+    .popup_close::before {
+        content: "";
+        display: block;
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-image: -webkit-linear-gradient(45deg, transparent 49%, #000 49%, #000 51%, transparent 51%), -webkit-linear-gradient(-45deg, transparent 49%, #000 49%, #000 51%, transparent 51%);
+    }
+
+    .popup_close:hover::before {
+        background-image: -webkit-linear-gradient(45deg, transparent 49%, #fff 49%, #fff 51%, transparent 51%), -webkit-linear-gradient(-45deg, transparent 49%, #fff 49%, #fff 51%, transparent 51%);
+    }
+
+    .popup_name {
+        padding-left: 20px;
+        font-size: 20px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .popup_content {
+        margin: 20px;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+
+    .popup_footer {
+        margin: 0 20px 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+
+    .popup_btn {
+        width: 49%;
+        height: 40px;
+        border: none;
+        outline: none;
+        background-color: #b8b8b8;
+    }
+
+    .popup_btn:hover {
+        box-shadow: 0 0 0 3px #6e6e6e inset;
+    }
+
+    .popup_mask {
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        display: none;
+        opacity: 0;
+        -webkit-transition: opacity .5s ease-in-out;
+        transition: opacity .5s ease-in-out;
+    }
+
+    .popup>i {
+        position: absolute;
+        display: block;
+        width: 5px;
+        height: 5px;
+    }
+
+    .popup>#pop_t {
+        width: 100%;
+        height: 3px;
+        cursor: n-resize;
+        top: 0;
+    }
+
+    .popup>#pop_b {
+        width: 100%;
+        height: 3px;
+        cursor: s-resize;
+        bottom: 0;
+    }
+
+    .popup>#pop_l {
+        width: 3px;
+        height: 100%;
+        cursor: w-resize;
+        left: 0;
+        top: 0;
+    }
+
+    .popup>#pop_r {
+        width: 3px;
+        height: 100%;
+        cursor: e-resize;
+        right: 0;
+        top: 0;
+    }
+
+    .popup>#pop_t_l {
+        top: 0;
+        left: 0;
+        cursor: nw-resize;
+    }
+
+    .popup>#pop_t_r {
+        top: 0;
+        right: 0;
+        cursor: ne-resize;
+    }
+
+    .popup>#pop_b_l {
+        bottom: 0;
+        left: 0;
+        cursor: sw-resize;
+    }
+
+    .popup>#pop_b_r {
+        bottom: 0;
+        right: 0;
+        cursor: se-resize;
+    }
+    </style>
 </head>
 
 <body>
+    <div class="popup_mask" id="pop_mask"></div>
+    <div class="popup" id="pop">
+        <header class="popup_header">
+            <p class="popup_title">windows UAC</p>
+            <span class="popup_close"></span>
+            <div class="popup_name">这是一个浮出层</div>
+        </header>
+        <article class="popup_content">
+            <div>这是一个浮出层</div>
+        </article>
+        <footer class="popup_footer">
+            <button class="popup_btn">确认</button>
+            <button class="popup_btn">取消</button>
+        </footer>
+        <i id="pop_t"></i>
+        <i id="pop_b"></i>
+        <i id="pop_l"></i>
+        <i id="pop_r"></i>
+        <i id="pop_t_l"></i>
+        <i id="pop_t_r"></i>
+        <i id="pop_b_l"></i>
+        <i id="pop_b_r"></i>
+    </div>
+    <button id="popbtn">弹出</button>
     <script type="text/javascript">
-    function User(name) {
-        let vname = name;
-        this._name = name;
-    }
-    User.cname = "tom";
-    User.getName = function() {
-        // this === User
-        console.log(this.cname);
-        console.log(this._name);
-        console.log(this.vname);
+    var $ = function(id) {
+        return document.getElementById(id);
     };
 
-    let man = new User("jack");
-    User.getName(); // tom undefined undefined
-    man.getName(); // Uncaught TypeError: man.getName is not a function
+    !(function(window, document) {
+        let Popup = function(popupelElement, showBtn, option) {
+            this.ele = popupelElement;
+            this.mask = document.getElementById("pop_mask");
+            this.show = showBtn;
+            this.title = this.ele.getElementsByTagName('p')[0];
+            this.close = this.ele.getElementsByTagName('span')[0];
+            this.confirm = this.ele.getElementsByTagName('button')[0];
+            this.cancel = this.ele.getElementsByTagName('button')[1];
+            this.a = this.ele.getElementsByTagName('i');
+
+            this.windowHeight = window.innerHeight;
+            this.windowWidth = window.innerWidth;
+
+            this.defaults = option || {
+                isDrag: false,
+                isDragLimit: false,
+                isChangeSize: false
+            };
+        }
+
+        Popup.prototype = {
+            constructor: Popup,
+
+            inital: function() {
+                let that = this;
+
+                this.show.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    that.showPopup();
+                    return false;
+                });
+
+                this.close.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    that.closePopup();
+                    return false;
+                });
+
+                this.cancel.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    that.closePopup();
+                    return false;
+                });
+
+                this.mask.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    that.closePopup();
+                    return false;
+                });
+
+                this.confirm.addEventListener("click", function(e) {
+                    e.stopPropagation();
+                    alert("OK!");
+                    return false;
+                });
+
+                if (that.defaults.isDrag) {
+                    that.title.addEventListener("mousedown", function(e) {
+                        e.stopPropagation();
+                        that.dragPopup(e);
+                        return false;
+                    });
+                }
+                if (that.defaults.isChangeSize) {
+                    for (let i = 0; i < that.a.length; i++) {
+                        that.a[i].addEventListener("mousedown", function(e) {
+                            e.stopPropagation();
+                            that.changeSize(e, this);
+                            return false;
+                        });
+                    }
+                }
+            },
+
+            // 显示浮出层
+            showPopup: function() {
+                this.mask.style.display = "flex";
+                this.ele.style.display = "flex";
+                this.ele.style.left = (this.windowWidth - this.ele.offsetWidth) / 2 + "px";
+                this.ele.style.top = (this.windowHeight - this.ele.offsetHeight) / 2 + "px";
+                this.mask.style.opacity = 1;
+                this.ele.style.opacity = 1;
+            },
+
+            // 隐藏浮出层
+            closePopup: function() {
+                this.mask.style.opacity = 0;
+                this.ele.style.opacity = 0;
+                setTimeout(function(that) {
+                    that.mask.style.display = "none";
+                    that.ele.style.display = "none";
+                }, 500, this);
+            },
+
+            // 移动浮出层
+            dragPopup: function(e) {
+                let that = this;
+                let Event = e || window.event;
+                let disX = e.clientX - this.ele.offsetLeft;// 鼠标点击时的X位置（相对与浮出层）
+                let disY = e.clientY - this.ele.offsetTop;// 鼠标点击时的Y位置（相对与浮出层）
+                let _move = true;
+
+                document.body.addEventListener("mousemove", function(e) {
+                    e.stopPropagation();
+                    if (_move) {
+                        let Event = e || window.event;
+                        let offset_left = e.clientX - disX;
+                        let offset_top = e.clientY - disY;
+
+                        // 浮出层不能移出窗口
+                        if (that.defaults.isDragLimit) {
+                            if (offset_left <= 0) {
+                                offset_left = 0;
+                            } else if (offset_left >= that.windowWidth - that.ele.offsetWidth) {
+                                offset_left = that.windowWidth - that.ele.offsetWidth;
+                            }
+                            if (offset_top <= 0) {
+                                offset_top = 0;
+                            } else if (offset_top >= that.windowHeight - that.ele.offsetHeight) {
+                                offset_top = that.windowHeight - that.ele.offsetHeight;
+                            }
+                        }
+
+                        that.ele.style.left = offset_left + "px";
+                        that.ele.style.top = offset_top + "px";
+                    }
+                    return false;
+                });
+
+                document.body.addEventListener("mouseup", function(e) {
+                    e.stopPropagation();
+                    _move = false;
+                    return false;
+                });
+            },
+
+            // 改变浮出层大小
+            changeSize: function(e, ele) {
+                let that = this;
+                let Event = e || window.event;
+                let _X = e.clientX;// 鼠标点击时的位置
+                let _Y = e.clientY;// 鼠标点击时的位置
+                let _eleWidth = this.ele.offsetWidth;// 元素宽度
+                let _eleHeight = this.ele.offsetHeight;// 元素高度
+                let _eleTop = this.ele.offsetTop;// 元素（左上角）距离窗口上边的距离
+                let _eleLeft = this.ele.offsetLeft;// 元素（左上角）距离窗口左边的距离
+                let _maxWidth = parseInt(getComputedStyle(this.ele, null).maxWidth);// 元素最大宽度
+                let _maxHeight = parseInt(getComputedStyle(this.ele, null).maxHeight);// 元素最大高度
+                let _minWidth = parseInt(getComputedStyle(this.ele, null).minWidth);// 元素最小宽度
+                let _minHeight = parseInt(getComputedStyle(this.ele, null).minHeight);// 元素最小高度
+                let _height;
+                let _top;
+                let _width;
+                let _left;
+                let _move = true;
+
+                document.body.addEventListener("mousemove", function(e) {
+                    if (_move) {
+                        switch (ele.id) {
+                            case "pop_t":
+                                {
+                                    _height = _Y - e.clientY + _eleHeight;
+                                    _top = _eleTop - _Y + e.clientY;
+                                }
+                                break;
+                            case "pop_b":
+                                {
+                                    _height = e.clientY - _Y + _eleHeight;
+                                }
+                                break;
+                            case "pop_l":
+                                {
+                                    _width = _X - e.clientX + _eleWidth;
+                                    _left = _eleLeft - _X + e.clientX;
+                                }
+                                break;
+                            case "pop_r":
+                                {
+                                    _width = e.clientX - _X + _eleWidth;
+                                }
+                                break;
+                            case "pop_t_l":
+                                {
+                                    _height = _Y - e.clientY + _eleHeight;
+                                    _top = _eleTop - _Y + e.clientY;
+                                    _width = _X - e.clientX + _eleWidth;
+                                    _left = _eleLeft - _X + e.clientX;
+                                }
+                                break;
+                            case "pop_t_r":
+                                {
+                                    _height = _Y - e.clientY + _eleHeight;
+                                    _top = _eleTop - _Y + e.clientY;
+                                    _width = e.clientX - _X + _eleWidth;
+                                }
+                                break;
+                            case "pop_b_l":
+                                {
+                                    _height = e.clientY - _Y + _eleHeight;
+                                    _width = _X - e.clientX + _eleWidth;
+                                    _left = _eleLeft - _X + e.clientX;
+                                }
+                                break;
+                            case "pop_b_r":
+                                {
+                                    _height = e.clientY - _Y + _eleHeight;
+                                    _width = e.clientX - _X + _eleWidth;
+                                }
+                                break;
+                        }
+
+                        //如果有最大宽度且宽度小于最大宽度时改变left，如果有最小宽度且宽度大于最大宽度时改变left
+                        //fix bug
+                        if (((!_maxWidth) || (_maxWidth >= _width)) && ((!_minWidth) || (_width >= _minWidth))) {
+                            that.ele.style.width = _width + "px";
+                            that.ele.style.left = _left + "px";
+                        }
+                        // 同上
+                        if (((!_maxHeight)||(_maxHeight >= _height)) && ((!_minHeight)||(_height >= _minHeight))) {
+                            that.ele.style.height = _height + "px";
+                            that.ele.style.top = _top + "px";
+                        }
+                    }
+                    return false;
+                });
+
+                document.body.addEventListener("mouseup", function(e) {
+                    e.stopPropagation();
+                    _move = false;
+                    return false;
+                });
+            }
+        }
+
+        window.Element.prototype.popup = function(btnElement, option) {
+            let pop = new Popup(this, btnElement, option);
+            return pop.inital();
+        }
+
+    })(window, document);
+
+    let opt = {
+        isDrag: true,// 是否可以移动
+        isDragLimit: true,// 是否可以移动出窗口
+        isChangeSize: true// 是否可以改变浮出大小
+    }
+    $('pop').popup($('popbtn'), opt);
     </script>
 </body>
 

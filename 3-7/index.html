@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+    }
+
+    .table-sort {
+        border-collapse: collapse;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .table-sort th,
+    .table-sort td {
+        width: 120px;
+        height: 30px;
+        border: 2px solid #ddd;
+    }
+
+    .table-sort th {
+        color: #fff;
+        background-color: #5b5b5b;
+        position: relative;
+    }
+
+    [class*="table-sort-btn-"] {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        right: 5px;
+    }
+
+    .table-sort-btn-up {
+        border-color: transparent transparent #fff;
+        border-style: solid;
+        border-width: 0 6px 8px;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+
+    .table-sort-btn-down {
+        border-color: #fff transparent transparent;
+        border-style: solid;
+        border-width: 8px 6px 0;
+        top: 70%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="tb1"></div>
+    <script type="text/javascript">
+    let $ = function(id) {
+        return document.getElementById(id);
+    }
+
+    let TableTool = (function() {
+        function init(opt, data) {
+            let instance = new Table(opt, data);
+            return instance;
+        }
+
+        function Table(opt, data) {
+            this.append = opt.append || document.body;
+            this.sortcolumn = opt.sortcolumn;
+            this.data = data;
+
+            this.renderTable();
+        }
+
+        Table.prototype = {
+            constructor: Table,
+
+            // 拼接表格字符串
+            renderTable: function() {
+                let html = "";
+                let tHead = "";
+                let tbody = "";
+                let data = this.data;
+                let th = Object.keys(data[0]);
+
+                // 拼接thead片段字符串
+                for (let i = 0; i < th.length; i++) {
+
+                    tHead += `<th data-name="${th[i]}">`;
+
+                    // 替换标题名
+                    switch (th[i]) {
+                        case "name":
+                            th[i] = "名字";
+                            break;
+                        case "chinese":
+                            th[i] = "中文";
+                            break;
+                        case "math":
+                            th[i] = "数学";
+                            break;
+                        case "english":
+                            th[i] = "英语";
+                            break;
+                        case "totalScore":
+                            th[i] = "总分";
+                            break;
+                    }
+
+                    tHead += th[i];
+
+                    if (this.sortcolumn[i] == 1) {
+                        tHead += '<i class="table-sort-btn-up"></i><i class="table-sort-btn-down"></i>';
+                    }
+
+                    tHead += '</th>';
+                }
+
+                // 拼接tbody字符串
+                for (let i = 0; i < data.length; i++) {
+
+                    tbody += '<tr>';
+
+                    for (let key in data[i]) {
+                        // 处理总分数据
+                        if (key == "totalScore") {
+                            data[i][key] = data[i]["chinese"] + data[i]["math"] + data[i]["english"];
+                        }
+
+                        tbody += `<td>${data[i][key]}</td>`;
+                    }
+
+                    tbody += '</tr>';
+                }
+
+                // 拼接table字符串
+                html = '<table class="table-sort">' + '<thead>' + '<tr>' + tHead + '</tr>' + '</thead>' + '<tbody>' + tbody + '</tbody>' + '</table>';
+
+                this.append.innerHTML = html;
+
+                this.bindEvent();
+            },
+
+            // 表格排序
+            sortTable: function(ele, dir) {
+                let sortItem = ele.parentElement.getAttribute("data-name");
+
+                switch (dir) {
+                    case "up":
+                        this.data.sort(function(a,b){
+                            return a[sortItem]-b[sortItem];
+                        });
+                        break;
+                    case "down":
+                        this.data.sort(function(a,b){
+                            return b[sortItem]-a[sortItem];
+                        });
+                        break;
+                }
+
+                this.renderTable();
+            },
+
+            // 绑定事件
+            bindEvent: function() {
+                let that = this;
+
+                let btnUp = $('tb1').getElementsByClassName('table-sort-btn-up');
+                for (let i = 0; i < btnUp.length; i++) {
+                    btnUp[i].addEventListener('click', function() {
+                        that.sortTable(this, "up");
+                    });
+                }
+
+                let btnDown = $('tb1').getElementsByClassName('table-sort-btn-down');
+                for (let i = 0; i < btnDown.length; i++) {
+                    btnDown[i].addEventListener('click', function() {
+                        that.sortTable(this, "down");
+                    });
+                }
+            }
+        }
+
+        return {
+            init: init
+        };
+
+    })();
+
+    let opt = {
+        append: $('tb1'),
+        sortcolumn: [0, 1, 1, 1, 1]
+    };
+
+    let data = [{
+        "name": "小明",
+        "chinese": 80,
+        "math": 90,
+        "english": 70,
+        "totalScore": null
+    }, {
+        "name": "小红",
+        "chinese": 90,
+        "math": 60,
+        "english": 90,
+        "totalScore": null
+    }, {
+        "name": "小亮",
+        "chinese": 60,
+        "math": 100,
+        "english": 70,
+        "totalScore": null
+    }, {
+        "name": "小李",
+        "chinese": 50,
+        "math": 70,
+        "english": 90,
+        "totalScore": null
+    }, {
+        "name": "小王",
+        "chinese": 50,
+        "math": 70,
+        "english": 60,
+        "totalScore": null
+    }, {
+        "name": "小张",
+        "chinese": 90,
+        "math": 90,
+        "english": 80,
+        "totalScore": null
+    }];
+
+    let table1 = TableTool.init(opt, data);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    section {
+        text-align: center;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    .css input[type="checkbox"]+label {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        box-sizing: border-box;
+        border: 1px solid #d7d7d7;
+    }
+
+    .css input[type="checkbox"]:checked+label {
+        border: 1px solid #d73e33;
+        position: relative;
+    }
+
+    .css input[type="checkbox"]:checked+label::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 6px;
+        height: 3px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+        border-top: none;
+        border-right: none;
+        border-bottom: 2px solid #d73e33;
+        border-left: 2px solid #d73e33;
+    }
+
+    .css input[type="radio"]+label {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border: 1px solid #d7d7d7;
+    }
+
+    .css input[type="radio"]:checked+label {
+        border: 1px solid #d73e33;
+        position: relative;
+    }
+
+    .css input[type="radio"]:checked+label::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #d73e33;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .sprite input[type="checkbox"]+label{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url(./1.png);
+        background-position: 0px -22px;
+        background-repeat: no-repeat;
+    }
+    .sprite input[type="checkbox"]:checked+label{
+        background-position: -35px -21px;
+    }
+    .sprite input[type="radio"]+label{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url(./1.png);
+        background-position: 0px 0px;
+        background-repeat: no-repeat;
+    }
+    .sprite input[type="radio"]:checked+label{
+        background-position: -35px 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <section class="css">
+        <h1>css3</h1>
+        <input type="checkbox" name="" id="css_c">
+        <label for="css_c"></label>
+        <input type="radio" name="css" id="css_r1" checked="checked">
+        <label for="css_r1"></label>
+        <input type="radio" name="css" id="css_r2">
+        <label for="css_r2"></label>
+    </section>
+    <section class="sprite">
+        <h1>雪碧图</h1>
+        <input type="checkbox" name="" id="sprite_c">
+        <label for="sprite_c"></label>
+        <input type="radio" name="sprite" id="sprite_r1" checked="checked">
+        <label for="sprite_r1"></label>
+        <input type="radio" name="sprite" id="sprite_r2">
+        <label for="sprite_r2"></label>
+    </section>
+</body>
+
+</html>

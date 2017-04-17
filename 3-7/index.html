@@ -153,18 +153,22 @@
             sortTable: function(ele, dir) {
                 let sortItem = ele.parentElement.getAttribute("data-name");
 
-                switch (dir) {
-                    case "up":
-                        this.data.sort(function(a,b){
-                            return a[sortItem]-b[sortItem];
-                        });
-                        break;
-                    case "down":
-                        this.data.sort(function(a,b){
-                            return b[sortItem]-a[sortItem];
-                        });
-                        break;
+                function sortByProperty(PropertyName, dir) {
+
+                    return function(obj1, obj2) {
+                        let val1 = obj1[PropertyName];
+                        let val2 = obj2[PropertyName];
+
+                        dir = dir || "up";
+                        if(dir === "up"){
+                            return val1-val2;
+                        }else if(dir === "down"){
+                            return val2-val1 ;
+                        }
+                    };
                 }
+
+                this.data.sort(sortByProperty(sortItem,dir));
 
                 this.renderTable();
             },

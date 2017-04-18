@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+	div{
+		margin: 20px 0;
+		border: 1px solid #aaa;
+	}
+    #context {
+        height: 300px;
+        background-color: #f5f5f5;
+    }
+	#context2{
+		height: 300px;
+        background-color: #88f;
+	}
+	dd:hover{
+		background-color: #ccc;
+	}
+	dd:active{
+		background-color: #aaa;
+	}
+    </style>
+</head>
+
+<body>
+    <div id="context"></div>
+	<div id="context2"></div>
+    <script type="text/javascript">
+    let $ = function(id) {
+        return document.getElementById(id);
+    };
+
+    let RightMenu = function(ele) {
+        let dl = {};
+
+        function createElement() {
+            dl = document.createElement("dl");
+			
+			// style
+            dl.style.position = "absolute";
+            dl.style.width = "150px";
+			dl.style.margin = "0px";
+			dl.style.border = "1px solid #d9d9d9";
+			dl.style.borderRadius = "2px";
+			dl.style.boxShadow = "2px 2px 2px #aaa"
+            dl.style.backgroundColor = "#eee";
+            dl.style.display = "none";
+
+            ele.appendChild(dl);
+        }
+
+        !function init() {
+            createElement();
+
+            ele.addEventListener("contextmenu", function(event) {
+                let Event = event || window.event;
+                Event.preventDefault(); //阻止原有的菜单
+                Event.returnValue = false; //在IE中阻止原有的菜单
+				Event.stopPropagation(); //阻止冒泡
+				
+				let html = document.documentElement;
+				html.click();
+				
+				let top = Event.pageY; //鼠标相对页面的位置
+				let left = Event.pageX;
+
+                dl.style.display = "block";
+				
+				//Event.client[X|Y] 鼠标相对可视区的位置
+				//Element.offset[Width|Height] 元素的宽高（包括边框）
+				//document.documentElement（html).client[Width|Height] 窗口（html）可视宽高
+				if(Event.clientY+dl.offsetHeight>html.clientHeight){
+					top = Event.pageY-dl.offsetHeight;
+				}
+				if(Event.clientX+dl.offsetWidth>html.clientWidth){
+					left = Event.pageX-dl.offsetWidth;
+				}
+
+				dl.style.top = top + "px";
+				dl.style.left = left + "px";
+				
+            });
+			
+			document.documentElement.addEventListener("click",function(){
+				dl.style.display = "none";
+			});
+        }();
+
+        self={
+            add:function(name,fn){
+				let dd = document.createElement("dd");
+				
+				// style
+				dd.style.height = "40px";
+				dd.style.lineHeight = "40px";
+				dd.style.margin = "0px";
+				dd.style.paddingLeft = "1em";
+				dd.style.cursor = "pointer";
+				
+				dd.innerText = name;
+				dd.addEventListener("click",fn);
+				dl.appendChild(dd);
+				
+				return self;
+            }
+        };
+
+        return self;
+    }
+
+    RightMenu($('context'))
+	.add("itme a",function(){
+		alert("a");
+	})
+	.add("itme b",function(){
+		alert("b");
+	})
+	.add("itme c",function(){
+		alert("c");
+	});
+	
+	RightMenu($('context2'))
+	.add("itme 1",function(){
+		alert("1");
+	})
+	.add("itme 2",function(){
+		alert("2");
+	})
+	.add("itme 3",function(){
+		alert("3");
+	});
+    </script>
+</body>
+
+</html>

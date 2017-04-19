@@ -39,7 +39,7 @@
 
         function createElement() {
             dl = document.createElement("dl");
-			
+
 			// style
             dl.style.position = "absolute";
             dl.style.width = "150px";
@@ -61,15 +61,15 @@
                 Event.preventDefault(); //阻止原有的菜单
                 Event.returnValue = false; //在IE中阻止原有的菜单
 				Event.stopPropagation(); //阻止冒泡
-				
+
 				let html = document.documentElement;
 				html.click();
-				
+
 				let top = Event.pageY; //鼠标相对页面的位置
 				let left = Event.pageX;
 
                 dl.style.display = "block";
-				
+
 				//Event.client[X|Y] 鼠标相对可视区的位置
 				//Element.offset[Width|Height] 元素的宽高（包括边框）
 				//document.documentElement（html).client[Width|Height] 窗口（html）可视宽高
@@ -82,9 +82,9 @@
 
 				dl.style.top = top + "px";
 				dl.style.left = left + "px";
-				
+
             });
-			
+
 			document.documentElement.addEventListener("click",function(){
 				dl.style.display = "none";
 			});
@@ -93,18 +93,18 @@
         self={
             add:function(name,fn){
 				let dd = document.createElement("dd");
-				
+
 				// style
 				dd.style.height = "40px";
 				dd.style.lineHeight = "40px";
 				dd.style.margin = "0px";
 				dd.style.paddingLeft = "1em";
 				dd.style.cursor = "pointer";
-				
+
 				dd.innerText = name;
 				dd.addEventListener("click",fn);
 				dl.appendChild(dd);
-				
+
 				return self;
             }
         };
@@ -122,7 +122,7 @@
 	.add("itme c",function(){
 		alert("c");
 	});
-	
+
 	RightMenu($('context2'))
 	.add("itme 1",function(){
 		alert("1");

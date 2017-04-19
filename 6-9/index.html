@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    section {
+        width: 800px;
+        margin: 20px auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 0 15px 10px;
+    }
+
+    h4 {
+        margin: 10px 0;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    .c1 input[type="radio"]+label {
+        display: block;
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 37px 15px 0px;
+        margin-bottom: 5px;
+        height: 0;
+        overflow: hidden;
+        counter-increment: itm1;
+        transition: height .3s linear;
+    }
+
+    .c1 input[type="radio"]:checked+label {
+        height: initial;
+        padding: 50px 15px 15px;
+        transition: height .3s linear;
+    }
+
+    .c1 input[type="radio"]+label::before {
+        content: "Collapsible Group Item #"counter(itm1);
+        cursor: pointer;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 37px;
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+        line-height: 37px;
+        padding-left: 1em;
+    }
+
+    .c1 input[type="radio"]+label:hover::before {
+        text-decoration: underline;
+    }
+
+    .c2 input[type="radio"]+label{
+        display: block;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        height: 37px;
+        overflow: hidden;
+        transition: height .3s linear;
+    }
+    .c2 input[type="radio"]+label p{
+        margin: 0;
+        height: 37px;
+        line-height: 37px;
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+        padding-left: 1em;
+    }
+    .c2 input[type="radio"]+label p:hover{
+        text-decoration: underline;
+    }
+    .c2 input[type="radio"]+label div{
+        padding: 15px 15px 15px;
+    }
+    .c2 input[type="radio"]:checked+label{
+        height: 220px;
+        transition: height .3s linear;
+    }
+    </style>
+</head>
+
+<body>
+    <section class="c1">
+        <h4>label伪类 （文本自适应）</h4>
+        <input type="radio" name="cascade" id="cascade1">
+        <label for="cascade1">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</label>
+        <input type="radio" name="cascade" id="cascade2">
+        <label for="cascade2">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</label>
+        <input type="radio" name="cascade" id="cascade3">
+        <label for="cascade3">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</label>
+    </section>
+    <section class="c2">
+        <h4>label嵌套 (文本高度固定才能表现height的过渡效果)</h4>
+        <input type="radio" name="c2_cascade" id="c2_cascade1">
+        <label for="c2_cascade1"><p>Collapsible Group Item #1</p><div>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div></label>
+        <input type="radio" name="c2_cascade" id="c2_cascade2">
+        <label for="c2_cascade2"><p>Collapsible Group Item #2</p><div>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div></label>
+        <input type="radio" name="c2_cascade" id="c2_cascade3">
+        <label for="c2_cascade3"><p>Collapsible Group Item #3</p><div>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single- origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div></label>
+    </section>
+</body>
+
+</html>

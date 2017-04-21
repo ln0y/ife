@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    .bgcircle {
+        width: 80px;
+        height: 80px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bgcircle::before {
+        content: "";
+        display: block;
+        position: absolute;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border: 2px solid #ff298c;
+        border-radius: 50%;
+        border-right-color: transparent;
+        animation: ring 1s linear infinite;
+    }
+
+    .bgcircle-left,
+    .bgcircle-right {
+        width: 25px;
+        height: 50px;
+        overflow: hidden;
+        background-color: #ff298c;
+    }
+
+    .bgcircle-left {
+        border-radius: 25px 0 0 25px;
+    }
+
+    .bgcircle-right {
+        border-radius: 0 25px 25px 0;
+    }
+
+    .bgcircle-left::before {
+        content: "";
+        display: block;
+        width: 25px;
+        height: 50px;
+        background-color: #fb8bbc;
+        border-radius: 25px 0 0 25px;
+        transform-origin: 100% 50%;
+        animation: ring-bg-left 2s linear infinite;
+    }
+
+    .bgcircle-right::before {
+        content: "";
+        display: block;
+        width: 25px;
+        height: 50px;
+        background-color: #fb8bbc;
+        border-radius: 0 25px 25px 0;
+        transform-origin: 0 50%;
+        animation: ring-bg-right 2s linear infinite;
+    }
+
+    @keyframes ring {
+        to {
+            transform: rotateZ(-360deg);
+        }
+    }
+
+    @keyframes ring-bg-left {
+        0% {
+            transform: rotateZ(0deg);
+        }
+        25% {
+            transform: rotateZ(-180deg);
+        }
+        50% {
+            transform: rotateZ(-180deg);
+        }
+        75% {
+            transform: rotateZ(-360deg);
+        }
+        100% {
+            transform: rotateZ(-360deg);
+        }
+    }
+    @keyframes ring-bg-right {
+        0% {
+            transform: rotateZ(0deg);
+        }
+        25% {
+            transform: rotateZ(0deg);
+        }
+        50% {
+            transform: rotateZ(-180deg);
+        }
+        75% {
+            transform: rotateZ(-180deg);
+        }
+        100% {
+            transform: rotateZ(-360deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="bgcircle">
+        <div class="bgcircle-left"></div>
+        <div class="bgcircle-right"></div>
+    </div>
+</body>
+
+</html>

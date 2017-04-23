@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+    }
+
+    img {
+        width: 320px;
+        height: 180px;
+        vertical-align: middle;
+        position: absolute;
+        box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);
+    }
+
+    .stage {
+        -webkit-perspective: 2000px;
+                perspective: 2000px;
+        -webkit-perspective-origin: 50% 50%;
+                perspective-origin: 50% 50%;
+        width: 1200px;
+        height: 400px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+    }
+
+    .rounding-3d {
+        -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+        width: 320px;
+        height: 180px;
+        position: relative;
+        -webkit-animation: rotate 13s ease-in-out infinite;
+                animation: rotate 13s ease-in-out infinite;
+        -webkit-transform-origin: 50%;
+                transform-origin: 50%;
+    }
+
+    .rounding-3d:hover {
+        -webkit-animation-play-state: paused;
+                animation-play-state: paused;
+    }
+
+    .rounding-3d img:nth-child(1) {
+        -webkit-transform: rotateY(0deg) translateZ(500px);
+                transform: rotateY(0deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(2) {
+        -webkit-transform: rotateY(0deg) translateZ(500px);
+                transform: rotateY(0deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(3) {
+        -webkit-transform: rotateY(45deg) translateZ(500px);
+                transform: rotateY(45deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(4) {
+        -webkit-transform: rotateY(45deg) translateZ(500px);
+                transform: rotateY(45deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(5) {
+        -webkit-transform: rotateY(90deg) translateZ(500px);
+                transform: rotateY(90deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(6) {
+        -webkit-transform: rotateY(90deg) translateZ(500px);
+                transform: rotateY(90deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(7) {
+        -webkit-transform: rotateY(135deg) translateZ(500px);
+                transform: rotateY(135deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(8) {
+        -webkit-transform: rotateY(135deg) translateZ(500px);
+                transform: rotateY(135deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(9) {
+        -webkit-transform: rotateY(180deg) translateZ(500px);
+                transform: rotateY(180deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(10) {
+        -webkit-transform: rotateY(180deg) translateZ(500px);
+                transform: rotateY(180deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(11) {
+        -webkit-transform: rotateY(225deg) translateZ(500px);
+                transform: rotateY(225deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(12) {
+        -webkit-transform: rotateY(225deg) translateZ(500px);
+                transform: rotateY(225deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(13) {
+        -webkit-transform: rotateY(270deg) translateZ(500px);
+                transform: rotateY(270deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(14) {
+        -webkit-transform: rotateY(270deg) translateZ(500px);
+                transform: rotateY(270deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(15) {
+        -webkit-transform: rotateY(315deg) translateZ(500px);
+                transform: rotateY(315deg) translateZ(500px);
+    }
+
+    .rounding-3d img:nth-child(16) {
+        -webkit-transform: rotateY(315deg) translateZ(500px);
+                transform: rotateY(315deg) translateZ(500px);
+    }
+
+    .hide {
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+    }
+
+    @-webkit-keyframes rotate {
+        0%,
+        4% {
+            -webkit-transform: rotateY(0deg);
+                    transform: rotateY(0deg);
+        }
+        12.5%,
+        16.5% {
+            -webkit-transform: rotateY(-45deg);
+                    transform: rotateY(-45deg);
+        }
+        25%,
+        29% {
+            -webkit-transform: rotateY(-90deg);
+                    transform: rotateY(-90deg);
+        }
+        37.5%,
+        41.5% {
+            -webkit-transform: rotateY(-135deg);
+                    transform: rotateY(-135deg);
+        }
+        50%,
+        54% {
+            -webkit-transform: rotateY(-180deg);
+                    transform: rotateY(-180deg);
+        }
+        62.5%,
+        66.5% {
+            -webkit-transform: rotateY(-225deg);
+                    transform: rotateY(-225deg);
+        }
+        75%,
+        79% {
+            -webkit-transform: rotateY(-270deg);
+                    transform: rotateY(-270deg);
+        }
+        87.5%,
+        91.5% {
+            -webkit-transform: rotateY(-315deg);
+                    transform: rotateY(-315deg);
+        }
+        100% {
+            -webkit-transform: rotateY(-360deg);
+                    transform: rotateY(-360deg);
+        }
+    }
+
+    @keyframes rotate {
+        0%,
+        4% {
+            -webkit-transform: rotateY(0deg);
+                    transform: rotateY(0deg);
+        }
+        12.5%,
+        16.5% {
+            -webkit-transform: rotateY(-45deg);
+                    transform: rotateY(-45deg);
+        }
+        25%,
+        29% {
+            -webkit-transform: rotateY(-90deg);
+                    transform: rotateY(-90deg);
+        }
+        37.5%,
+        41.5% {
+            -webkit-transform: rotateY(-135deg);
+                    transform: rotateY(-135deg);
+        }
+        50%,
+        54% {
+            -webkit-transform: rotateY(-180deg);
+                    transform: rotateY(-180deg);
+        }
+        62.5%,
+        66.5% {
+            -webkit-transform: rotateY(-225deg);
+                    transform: rotateY(-225deg);
+        }
+        75%,
+        79% {
+            -webkit-transform: rotateY(-270deg);
+                    transform: rotateY(-270deg);
+        }
+        87.5%,
+        91.5% {
+            -webkit-transform: rotateY(-315deg);
+                    transform: rotateY(-315deg);
+        }
+        100% {
+            -webkit-transform: rotateY(-360deg);
+                    transform: rotateY(-360deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="stage">
+        <div class="rounding-3d">
+            <img src="./9.jpg">
+            <img class="hide" src="./1.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./2.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./3.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./4.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./5.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./6.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./7.png">
+            <img src="./9.jpg">
+            <img class="hide" src="./8.png">
+        </div>
+    </div>
+</body>
+
+</html>

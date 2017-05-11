@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="/ife/jQuery/jquery-2.1.4.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <script type="text/javascript" src="./colorConvert.js"></script>
+    <script type="text/javascript" src="./numberAccelerator.js"></script>
+    <script type="text/javascript" src="./colorselect.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
+</head>
+
+<body>
+    <div class="color-select-container">
+        <section class="color-panel-wrapper">
+            <canvas id="color-panel">
+                当前浏览器不支持canvas！
+            </canvas>
+            <div class="color-panel-btn"></div>
+        </section>
+        <section class="color-bar-wrapper">
+            <div class="color-bar"></div>
+            <div class="color-bar-btn"></div>
+        </section>
+        <section class="color-value">
+            <div class="color-RGB">
+                <div class="color-value-wrapper" >
+                    <span>R</span>
+                    <input type="tel">
+                    <i class="inpbtn-up"></i>
+                    <i class="inpbtn-down"></i>
+                </div>
+                <div class="color-value-wrapper">
+                    <span>G</span>
+                    <input type="tel">
+                    <i class="inpbtn-up"></i>
+                    <i class="inpbtn-down"></i>
+                </div>
+                <div class="color-value-wrapper">
+                    <span>B</span>
+                    <input type="tel">
+                    <i class="inpbtn-up"></i>
+                    <i class="inpbtn-down"></i>
+                </div>
+            </div>
+            <hr>
+            <div class="color-HSL">
+                <div class="color-value-wrapper">
+                    <span>H</span>
+                    <input type="tel">
+                    <i class="inpbtn-up"></i>
+                    <i class="inpbtn-down"></i>
+                </div>
+                <div class="color-value-wrapper">
+                    <span>S</span>
+                    <input type="tel">
+                    <i class="inpbtn-up"></i>
+                    <i class="inpbtn-down"></i>
+                </div>
+                <div class="color-value-wrapper">
+                    <span>L</span>
+                    <input type="tel">
+                    <i class="inpbtn-up"></i>
+                    <i class="inpbtn-down"></i>
+                </div>
+            </div>
+        </section>
+        <section class="color-current-wrapper">
+            <div class="color-current-panel"></div>
+            <div class="color-current-value">
+                <div class="color-current-value-wrapper">
+                    <span>#</span>
+                </div>
+                <div class="color-current-value-wrapper">
+                    <span>rgb</span>
+                </div>
+                <div class="color-current-value-wrapper">
+                    <span>hsl</span>
+                </div>
+                <div class="color-current-value-wrapper">
+                    <span>hsv</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

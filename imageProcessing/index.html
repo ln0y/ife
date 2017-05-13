@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .wrap {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #effectWrap {
+        display: flex;
+        justify-content: center;
+    }
+
+    button {
+        outline: none;
+        border: none;
+        width: 150px;
+        height: 35px;
+        margin: 5px 10px 0;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 16px;
+    }
+
+    canvas {
+        border: 1px solid #ddd;
+    }
+    </style>
+    <script type="text/javascript" src="./CanvasImageProcessing.js"></script>
+</head>
+
+<body>
+    <section class="wrap">
+        <canvas id="canvas1"></canvas>
+        <canvas id="canvas2"></canvas>
+    </section>
+    <div id="effectWrap">
+        <button>灰度化</button>
+        <button>二值化（128）</button>
+        <button>海报化</button>
+        <button>底片效果</button>
+        <button>高斯模糊(R=3)</button>
+        <button>底片效果</button>
+    </div>
+    <script type="text/javascript">
+    window.onload = function() {
+        let $ = function(id) {
+            return document.getElementById(id);
+        };
+
+        let canvas1 = $('canvas1');
+        let canvas2 = $('canvas2');
+
+        canvas1.width = 578;
+        canvas1.height = 578;
+        canvas2.width = 578;
+        canvas2.height = 578;
+
+        let ctx1 = canvas1.getContext('2d');
+        let ctx2 = canvas2.getContext('2d');
+
+        let image = new Image();
+        image.src = "lena.png";
+
+        image.onload = function() {
+            ctx1.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+            ctx2.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+        }
+
+        function getChildrenIndex(ele) {
+            //IE is simplest and fastest
+            if (ele.sourceIndex) {
+                return ele.sourceIndex - ele.parentNode.sourceIndex - 1;
+            }
+            //other browsers
+            let i = 0;
+            while (ele = ele.previousElementSibling) {
+                i++;
+            }
+            return i;
+        }
+
+        $('effectWrap').addEventListener('click', function(e) {
+            e = e || window.event;
+            let tar = e.target || e.srcElement;
+            e.preventDefault();
+            if (tar.nodeName.toLowerCase() === "button") {
+                switch (getChildrenIndex(tar)) {
+                    case 0:
+                        ctx2.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+                        ctx2.myConvertToGray();
+                        break;
+                    case 1:
+                        ctx2.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+                        ctx2.myThresholdProcess();
+                        break;
+                    case 2:
+                        ctx2.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+                        ctx2.myPosterize();
+                        break;
+                    case 3:
+                        ctx2.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+                        ctx2.myToReverse();
+                        break;
+                    case 4:
+                        ctx2.drawImage(image, 0, 0, canvas1.width, canvas1.height);
+                        ctx2.myGaussBlur(10);
+                        break;
+                }
+            }
+        });
+    };
+    </script>
+</body>
+
+</html>

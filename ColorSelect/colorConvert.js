@@ -1,15 +1,15 @@
 'use strict';
-let ColorConvert = (function() {
+let ColorConvert = (function () {
 
     /**
      * @Date   2017-05-01T14:29:07+0800
      * @param  {[munber]}
      * @param  {[munber]}
      * @param  {[munber]}
-     * @return {[Array]}
+     * @return {[Array]}  
      */
     function rgb2hsl([r, g, b]) {
-        [r, g, b] = [].map.call([r, g, b], function(item) {
+        [r, g, b] = [].map.call([r, g, b], function (item) {
             return item / 255;
         });
 
@@ -49,7 +49,7 @@ let ColorConvert = (function() {
      * @return {[Array]}
      */
     function rgb2hsv([r, g, b]) {
-        [r, g, b] = [].map.call([r, g, b], function(item) {
+        [r, g, b] = [].map.call([r, g, b], function (item) {
             return item / 255;
         });
 
@@ -87,7 +87,7 @@ let ColorConvert = (function() {
      * @return {[Array]}
      */
     function hsl2rgb([h, s, l]) {
-        [h, s, l] = [h, s, l].map(function(item){
+        [h, s, l] = [h, s, l].map(function (item) {
             return parseFloat(item);
         });
         let r, g, b;
@@ -132,7 +132,7 @@ let ColorConvert = (function() {
      * @return {[Array]}
      */
     function hsv2rgb([h, s, v]) {
-        [h, s, v] = [h, s, v].map(function(item){
+        [h, s, v] = [h, s, v].map(function (item) {
             return parseFloat(item);
         });
         let r, g, b;

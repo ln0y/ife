@@ -49,7 +49,7 @@ page.open(url, function (status) {
                     var title = $(value).find('.t a:first-child').text() || 'none';
                     var info = $(value).find('.c-abstract').text() || 'none';
                     var link = $(value).find('.t a:first-child').attr('href') || 'none';
-                    var pic = $(value).find('.c-img').attr('src') || 'none';
+                    var pic = [].map.call($(value).find('.c-img'),function(i){return i.src}) || 'none';
                     dataList.push({
                         title: title,
                         info: info,

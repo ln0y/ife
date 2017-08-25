@@ -1,0 +1,47 @@
+{% for data in dataList %}
+<div class="item">
+    <div class="card">
+        {% if data.pic %}
+        {% set carouseNum = loop.index0 %}
+        {% if data.pic |length === 1 %}
+        <img class="card-img-top" src="{{data.pic[0]}}">
+        {% else %}
+        <div id="carouseResult{{carouseNum}}" class="carousel slide" data-ride="carousel" data-interval="2000">
+
+            <ol class="carousel-indicators">
+                {% for pic in data.pic %}
+                <li data-target="#carouseResult{{carouseNum}}" data-slide-to="{{loop.index0}}" class="{{"active" if loop.first else ""}}"></li>
+                {% endfor %}
+            </ol>
+
+            <div class="carousel-inner">
+                {% for pic in data.pic %}
+                <div class="carousel-item{{" active" if loop.first else ""}}">
+                    <img class="d-block w-100" src="{{pic}}">
+                </div>
+                {% endfor %}
+            </div>
+
+            <a class="carousel-control-prev" href="#carouseResult{{carouseNum}}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouseResult{{carouseNum}}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="card-body">
+            <h4 class="card-title">{{data.title}}</h4>
+            <p class="card-text">{{data.info}}</p>
+            <a href="{{data.link}}" target="_blank" class="btn btn-primary">Go into</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<script>
+    $('[data-ride="carousel"]').carousel(); //还要手动初始化
+</script>

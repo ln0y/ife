@@ -1,0 +1,25 @@
+{
+  "name": "phantom",
+  "version": "1.0.0",
+  "description": "hello node",
+  "main": "task3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "phantomjs",
+    "nodejs",
+    "mongodb"
+  ],
+  "dependencies": {
+    "iconv-lite": "^0.4.18",
+    "mongoose": "latest"
+  },
+  "author": "lexokid",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1"
+  }
+}

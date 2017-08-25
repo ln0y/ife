@@ -1,0 +1,23 @@
+{
+    "mobile": {
+        "res": ".c-container",
+        "title": ".c-title",
+        "info": ".c-abstract",
+        "link": "a:first-of-type",
+        "pic": ".c-img img"
+    },
+    "pad": {
+        "res": ".c-container",
+        "title": ".t > a:first-of-type",
+        "info": ".c-abstract",
+        "link": ".t > a:first-of-type",
+        "pic": ".c-img , #ala_img_pics img "
+    },
+    "desktop": {
+        "res": ".c-container",
+        "title": ".t > a:first-of-type",
+        "info": ".c-abstract",
+        "link": ".t > a:first-of-type",
+        "pic": ".c-img"
+    }
+}

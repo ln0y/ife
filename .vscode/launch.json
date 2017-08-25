@@ -2,12 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "node",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080/index.html",
-            "webRoot": "${workspaceRoot}"
+            "name": "Launch Program",
+            "program": "${file}"
         },
+        // {
+        //     "type": "chrome",
+        //     "request": "launch",
+        //     "name": "Launch Chrome against localhost",
+        //     "url": "http://localhost:8080/index.html",
+        //     "webRoot": "${workspaceRoot}"
+        // },
         {
             "type": "chrome",
             "request": "attach",

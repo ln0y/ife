@@ -10,6 +10,6 @@
 访问http://localhost:8080
 
 3. 预览
-![](preview (1).png)
-![](preview (2).png)
-![](preview (3).png)
+![](https://github.com/Lexokid/ife/blob/master/crawler/preview%20(1).png)
+![](https://github.com/Lexokid/ife/blob/master/crawler/preview%20(2).png)
+![](https://github.com/Lexokid/ife/blob/master/crawler/preview%20(3).png)

@@ -1,0 +1,32 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "hello node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "phantomjs",
+    "nodejs",
+    "mongodb",
+    "koa2"
+  ],
+  "dependencies": {
+    "async": "^2.5.0",
+    "iconv-lite": "^0.4.18",
+    "mime": "^1.3.6",
+    "mongoose": "^4.11.7",
+    "mz": "^2.6.0",
+    "nunjucks": "^2.5.2",
+    "phantom": "^4.0.5",
+    "socket.io": "^2.0.3"
+  },
+  "author": "lexokid",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1"
+  }
+}

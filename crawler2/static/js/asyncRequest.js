@@ -51,6 +51,7 @@ $(function () {
         socket.emit('query', task);
     });
 
+    //Converts query objects into a series of tasks
     function convert2Queue(query) {
         let queue = [];
         for (let i of query.device) {

@@ -9,6 +9,12 @@ const {
 } = require('../templating');
 const concurrentNumber = 5;
 
+/**
+ * get crawler data
+ * 
+ * @param {Object} query querystring
+ * @returns {Object} crawler data
+ */
 async function getResult(query) {
     let results = await crawler(query.keyword, query.device, query.page).catch(e => console.error(e.message));
 
@@ -35,10 +41,13 @@ module.exports = function (server) {
     let i = 0;
     let n = 0;
 
+    //use async.queue control Concurrency
     const q = async.queue(async function (task, callback) {
         console.log(`current concurrentNumber:${++i}`);
         let results = await getResult(task);
         console.log(`current concurrentNumber:${--i}`);
+
+        //send html template string
         task.socket.emit('result', {
             html: render('crawlerResult.html', {
                 dataList: results.dataList,
@@ -56,6 +65,7 @@ module.exports = function (server) {
 
     io.on('connection', function (socket) {
         socket.on('query', function (data) {
+            //insert socket item for each data to distinguish connection
             data = data.map(i => {
                 i.socket = socket;
                 return i;

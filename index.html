@@ -2,35 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <script src="./jQuery/jquery-3.2.1.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 
 <body>
-    <div id="ajaxtest"></div>
-    <article>
+  <script>
+    var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象
 
-    </article>
-    <script>
-        $(function () {
-            $.ajax({
-                url: 'http://api.money.126.net/data/feed/0000001,1399001',
-                dataType:'jsonp',
-                success: function (data) {
-                    var str = '当前价格：' +
-                        data['0000001'].name + ': ' +
-                        data['0000001'].price + ':' +
-                        data['1399001'].name + ': ' +
-                        data['1399001'].price;
-                    console.log(str);
-                },
-                error: function () {
-                    console.log('出错了');
-                }
-            });
-        });
-    </script>
+    request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+      if (request.readyState === 4) { // 成功完成
+        // 判断响应结果:
+        if (request.status === 200) {
+          // 成功，通过responseText拿到响应的文本:
+          // return success(request.responseText);
+          console.log(request.responseText)
+        } else {
+          // 失败，根据响应码判断失败原因:
+          // return fail(request.status);
+        }
+      } else {
+        // HTTP请求还在继续...
+      }
+    }
+
+    // 发送请求:
+    request.open('GET', 'https://raw.githubusercontent.com/Lexokid/ife/master/README.md');
+    request.send();
+  </script>
 </body>
 
 </html>
